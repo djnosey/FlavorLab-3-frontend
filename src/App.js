@@ -8,11 +8,14 @@ import Private from "./pages/Private";
 
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
+import Navbar from "./components/NavBar/Navbar";
 
 class App extends Component {
   render() {
     return (
       <div className="container">
+        <Navbar />
+
         <Switch>
           <Route exact path="/" component={Home} />
 

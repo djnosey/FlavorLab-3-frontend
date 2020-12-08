@@ -1,41 +1,49 @@
-import React, { Component } from "react";
-import { withAuth } from './../context/auth-context';
+import React, { useState, useEffect } from "react";
+import { withAuth } from "./../context/auth-context";
 
-class Login extends Component {
-  state = { username: "", password: "" };
+function Login(props) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    const { username, password } = this.state;
-    // Call funciton coming from AuthProvider ( via withAuth )
-    this.props.login(username, password);
+  useEffect(() => {
+    setError(props.loginError);
+  }, [props.loginError]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.login(email, password);
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-  render() {
-    const { username, password } = this.state;
-
-    return (
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          value={email}
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+        />
+        <input
+          type="password"
+          value={password}
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+          autoComplete="current-password"
+        />
+        <button>Log in</button>
+      </form>
       <div>
-        <h1>Login</h1>
-
-        <form onSubmit={this.handleFormSubmit}>
-          
-          <label>Username:</label>
-          <input type="text" name="username" value={username} onChange={this.handleChange}/>
-
-          <label>Password:</label>
-          <input type="password" name="password" value={password} onChange={this.handleChange} />
-
-          <input type="submit" value="Login" />
-        </form>
+        {error.includes("401") ? (
+          <p>Seems like you typed the wrong password!</p>
+        ) : null}
+        {error.includes("404") ? (
+          <p>looks like that email doesn't have an account!</p>
+        ) : null}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default withAuth(Login);

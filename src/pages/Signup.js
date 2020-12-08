@@ -1,50 +1,58 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { withAuth } from './../context/auth-context';
+import React, { useState, useEffect } from "react";
+import { withAuth } from "./../context/auth-context";
 
-class Signup extends Component {
-  state = { username: "", password: "" };
+function Signup(props) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    const { username, password } = this.state;
-    
-    this.props.signup( username, password );
+  useEffect(() => {
+    setError(props.signUpError);
+  }, [props.signUpError]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.signup(name, email, password);
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-
-  render() {
-    const { username, password } = this.state;
-    return (
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={name}
+          name="name"
+          onChange={(e) => setName(e.target.value)}
+          autoComplete="name"
+        />
+        <input
+          type="email"
+          value={email}
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
+        />
+        <input
+          type="password"
+          value={password}
+          name="password"
+          autoComplete="current-password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button>sign up</button>
+      </form>
       <div>
-        <h1>Sign Up</h1>
+        {error.includes("401") ? (
+          <p>that email address is already in use!</p>
+        ) : null}
 
-        <form onSubmit={this.handleFormSubmit}>
-
-          <label>Username:</label>
-          <input type="text" name="username" value={username} onChange={this.handleChange} />
-
-          <label>Password:</label>
-          <input type="password" name="password" value={password} onChange={this.handleChange} />
-
-          <input type="submit" value="Signup" />
-        </form>
-        
-        <p>Already have account?</p>
-        <Link to={"/login"}> Login</Link>
+        {error.includes("400") ? (
+          <p>I think you forgot to fill in the form!</p>
+        ) : null}
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-
-
 export default withAuth(Signup);
-
-
-// const EnhancedSignup = withAuth(Signup)
-// export default EnhancedSignup;
