@@ -9,6 +9,7 @@ import Private from "./pages/Private";
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/NavBar/Navbar";
+import Primary from "./pages/Primary";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
 
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/primary" component={Primary} />
 
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
