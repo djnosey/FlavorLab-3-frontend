@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import ScrollPicker from "../components/Picker/ScrollPicker";
 import IngredientInfo from "../components/IngredientInfo/IngredientInfo";
+import { withAuth } from "./../context/auth-context";
 
-function Primary() {
+function Primary(props) {
   const [allIngredients, setAllIngredients] = useState([]);
-  const [ingredient, setIngredient] = useState("");
-  const [SingleIngredientObject, setSingleIngredientObject] = useState({});
-  const [ingredientId, setIngredientId] = useState(null);
-  
-  const findIngredient = (ingredient) => {
-    setIngredient(ingredient);
-  };
+  const [selectedIngredient, setSelectedIngredient] = useState("");
+  const [SingleIngredientObject, setSingleIngredientObject] = useState([]);
 
   useEffect(() => {
     axios
@@ -23,24 +20,28 @@ function Primary() {
 
   useEffect(() => {
     const foundIngredient = allIngredients.filter(
-      (item) => item.name === ingredient
+      (item) => item.name === selectedIngredient
     );
-    const foundIngrerdientId = foundIngredient[0]?._id;
-    setIngredientId(foundIngrerdientId);
-  }, [allIngredients, ingredient]);
+    setSingleIngredientObject(foundIngredient);
+  }, [allIngredients, selectedIngredient]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/ingredient/${ingredientId}`)
-      .then((response) => {
-        setSingleIngredientObject(response.data);
-      });
-  }, [ingredientId]);
+  const findIngredient = (ingredient) => {
+    setSelectedIngredient(ingredient);
+  };
 
   return (
-    <div className="primary">
+    <div className="primary__container">
       <div className="primary__left">
         <ScrollPicker findIngredient={findIngredient} />
+        {props.isLoggedIn ? (
+          <Link to={`/pairing/${SingleIngredientObject[0]?._id}`}>
+            <button>start pairing logged in</button>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button>start pairing logged out</button>
+          </Link>
+        )}
       </div>
       <div className="primary__right">
         <IngredientInfo ingredient={SingleIngredientObject} />
@@ -49,4 +50,4 @@ function Primary() {
   );
 }
 
-export default Primary;
+export default withAuth(Primary);

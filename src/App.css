@@ -127,3 +127,20 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/*PRIMARY PAGE BASIC CSS*/
+.primary__container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 90%;
+}
+
+/*FLAROUR PAIRING PAGE BASIC CSS*/
+
+.flavour-pairing-page__container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 90%;
+}

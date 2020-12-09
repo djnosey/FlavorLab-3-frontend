@@ -10,6 +10,7 @@ import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/NavBar/Navbar";
 import Primary from "./pages/Primary";
+import FlavourPairingPage from "./pages/FlavourPairingPage";
 
 class App extends Component {
   render() {
@@ -23,7 +24,11 @@ class App extends Component {
 
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
-
+          <PrivateRoute
+            exact
+            path="/pairing/:id"
+            component={FlavourPairingPage}
+          />
           <PrivateRoute exact path="/private" component={Private} />
         </Switch>
       </div>
