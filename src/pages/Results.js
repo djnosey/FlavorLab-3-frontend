@@ -29,7 +29,6 @@ function Results(props) {
         `https://api.spoonacular.com/food/wine/pairing?food=${firstIngredient}${APIKEY}`
       )
       .then((response) => {
-        console.log(response.data);
         if (
           response.data.hasOwnProperty("status") ||
           response.data.pairedWines.length === 0
