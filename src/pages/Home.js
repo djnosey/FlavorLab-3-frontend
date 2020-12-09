@@ -1,9 +1,8 @@
 import React from "react";
-
 function Home() {
   return (
-    <div>
-      <h1>Home Page</h1>
+    <div className="home__container">
+      <div className="home__image-container"></div>
     </div>
   );
 }

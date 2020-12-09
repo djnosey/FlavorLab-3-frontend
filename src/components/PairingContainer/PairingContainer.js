@@ -6,9 +6,7 @@ function PairingContainer(props) {
     allPairs: [{ name: "", group: "", score: 0 }],
   });
   const [pairs, setPairs] = useState([]);
-  const [sortNameBtnClicked, setSortNameBtnClicked] = useState(false);
-  const [sortScoreBtnClicked, setSortScoreBtnClicked] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [pairsCopy, setPairsCopy] = useState([]);
 
   useEffect(() => {
     props.ingredient[0] && setIngredient(props.ingredient[0]);
@@ -16,406 +14,336 @@ function PairingContainer(props) {
 
   useEffect(() => {
     const copyOfPairs = ingredient.allPairs.filter((item) => item.score !== 0);
+    setPairsCopy(copyOfPairs);
     setPairs(copyOfPairs);
   }, [ingredient]);
-
-  useEffect(() => {
-    if (searchTerm !== "") {
-      const copyOfPairs = pairs.filter((pair) =>
-        pair.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setPairs(copyOfPairs);
-    } else {
-      setPairs(ingredient.allPairs.filter((item) => item.score !== 0));
-    }
-  }, [searchTerm]);
 
   const sortByScore = (e) => {
     e.preventDefault();
     let copyOfPairs = [...pairs];
     copyOfPairs.sort((a, b) => b.score - a.score);
     setPairs(copyOfPairs);
-    setSortScoreBtnClicked(true);
-    setSortNameBtnClicked(false);
   };
+
   const sortByName = (e) => {
     e.preventDefault();
     let copyOfPairs = [...pairs];
     copyOfPairs.sort((a, b) => a.name.localeCompare(b.name));
     setPairs(copyOfPairs);
-    setSortNameBtnClicked(true);
-    setSortScoreBtnClicked(false);
   };
 
   const sortByGroup = (e) => {
     e.preventDefault();
-    const copyOfPairs = ingredient.allPairs.filter((item) => item.score !== 0);
-    setPairs(copyOfPairs);
-    setSortScoreBtnClicked(false);
-    setSortNameBtnClicked(false);
+    setPairs(pairsCopy);
+    props.setSecond("");
+    props.setThird("");
+    props.incClicks(0);
   };
+
   const reducePairs = (group, name) => {
     const copyOfPairs = [...pairs];
+    const filtered = [];
 
     if (props.clicks === 0) {
       props.incClicks(1);
       props.setSecond(name);
+
       copyOfPairs.forEach((item, index) => {
         if (group === "Earthy") {
           if (
-            item.group !== "Chocolate" &&
-            item.group !== "Dairy" &&
-            item.group !== "Floral" &&
-            item.group !== "Meaty"
+            item.group === "Chocolate" ||
+            item.group === "Dairy" ||
+            item.group === "Floral" ||
+            item.group === "Meaty"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Berry") {
-          if (item !== "Spice" && item !== "Floral") {
-            copyOfPairs.splice(index, 1);
+        } else if (group === "Berry") {
+          if (item.group === "Spice" || item.group === "Floral") {
+            filtered.push(item);
           }
-        }
-
-        if (group === "Citrus") {
+        } else if (group === "Citrus") {
           if (
-            item !== "Alcohol" &&
-            item !== "Medicinal" &&
-            item !== "Melon" &&
-            item !== "Suplhur" &&
-            item !== "Tree Fruit" &&
-            item !== "Wood" &&
-            item !== "Nutty" &&
-            item !== "Spice"
+            item.group === "Alcohol" ||
+            item.group === "Medicinal" ||
+            item.group === "Melon" ||
+            item.group === "Suplhur" ||
+            item.group === "Tree Fruit" ||
+            item.group === "Wood" ||
+            item.group === "Nutty" ||
+            item.group === "Spice"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Dried Fruit") {
-          if (item !== "Meaty" && item !== "Phenol") {
-            copyOfPairs.splice(index, 1);
+        } else if (group === "Dried Fruit") {
+          if (item.group === "Meaty" || item.group === "Phenol") {
+            filtered.push(item);
           }
-        }
-
-        if (group === "Melon") {
+        } else if (group === "Melon") {
           if (
-            item !== "Citrus" &&
-            item !== "Fruit Like" &&
-            item !== "Green" &&
-            item !== "Suplhur" &&
-            item !== "Savory"
+            item.group === "Citrus" ||
+            item.group === "Fruit Like" ||
+            item.group === "Green" ||
+            item.group === "Suplhur" ||
+            item.group === "Savory"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Tree Fruit") {
+        } else if (group === "Tree Fruit") {
           if (
-            item !== "Citrus" &&
-            item !== "Dairy" &&
-            item !== "Floral" &&
-            item !== "Fruit Like" &&
-            item !== "Roasted" &&
-            item !== "Savory" &&
-            item !== "Petrol"
+            item.group === "Citrus" ||
+            item.group === "Dairy" ||
+            item.group === "Floral" ||
+            item.group === "Fruit Like" ||
+            item.group === "Roasted" ||
+            item.group === "Savory" ||
+            item.group === "Petrol"
           ) {
-            copyOfPairs(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Tropical") {
+        } else if (group === "Tropical") {
           if (
-            item !== "Dairy" &&
-            item !== "Floral" &&
-            item !== "Fruit Like" &&
-            item !== "Wood" &&
-            item !== "Savory" &&
-            item !== "Spice"
+            item.group === "Dairy" ||
+            item.group === "Floral" ||
+            item.group === "Fruit Like" ||
+            item.group === "Wood" ||
+            item.group === "Savory" ||
+            item.group === "Spice"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Phenol") {
+        } else if (group === "Phenol") {
           if (
-            item !== "Chocolate" &&
-            item !== "Dried Fruit" &&
-            item !== "Smoke"
+            item.group === "Chocolate" ||
+            item.group === "Dried Fruit" ||
+            item.group === "Smoke"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Pungent") {
-          if (item !== "Foral" && item !== "Sour") {
-            copyOfPairs.splice(index, 1);
+        } else if (group === "Pungent") {
+          if (item.group === "Foral" || item.group === "Sour") {
+            filtered.push(item);
           }
-        }
-
-        if (group === "Caramel") {
+        } else if (group === "Caramel") {
           if (
-            item !== "Alcohol" &&
-            item !== "Fruit Like" &&
-            item !== "Savory" &&
-            item !== "Spice" &&
-            item !== "Nutty"
+            item.group === "Alcohol" ||
+            item.group === "Fruit Like" ||
+            item.group === "Savory" ||
+            item.group === "Spice" ||
+            item.group === "Nutty"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Chocolate") {
+        } else if (group === "Chocolate") {
           if (
-            item !== "Alcohol" &&
-            item !== "Dairy" &&
-            item !== "Earthy" &&
-            item !== "Fruit Like" &&
-            item !== "Nutty" &&
-            item !== "Phenol" &&
-            item !== "Meaty"
+            item.group === "Alcohol" ||
+            item.group === "Dairy" ||
+            item.group === "Earthy" ||
+            item.group === "Fruit Like" ||
+            item.group === "Nutty" ||
+            item.group === "Phenol" ||
+            item.group === "Meaty"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Meaty") {
+        } else if (group === "Meaty") {
           if (
-            item !== "Alcohol" &&
-            item !== "Chocolate" &&
-            item !== "Dried Fruit" &&
-            item !== "Fruit Like" &&
-            item !== "Earthy" &&
-            item !== "Savory" &&
-            item !== "Smoke"
+            item.group === "Alcohol" ||
+            item.group === "Chocolate" ||
+            item.group === "Dried Fruit" ||
+            item.group === "Fruit Like" ||
+            item.group === "Earthy" ||
+            item.group === "Savory" ||
+            item.group === "Smoke"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Nutty") {
+        } else if (group === "Nutty") {
           if (
-            item !== "Caramel" &&
-            item !== "Chocolate" &&
-            item !== "Fruit Like" &&
-            item !== "Sulphur" &&
-            item !== "Wood"
+            item.group === "Caramel" ||
+            item.group === "Chocolate" ||
+            item.group === "Fruit Like" ||
+            item.group === "Sulphur" ||
+            item.group === "Wood"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Roasted") {
+        } else if (group === "Roasted") {
           if (
-            item !== "Marine" &&
-            item !== "Petrol" &&
-            item !== "Fruit Like" &&
-            item !== "Sulphur" &&
-            item !== "Tree Fruit"
+            item.group === "Marine" ||
+            item.group === "Petrol" ||
+            item.group === "Fruit Like" ||
+            item.group === "Sulphur" ||
+            item.group === "Tree Fruit"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Toasted") {
-          if (item !== "Dairy" && item !== "Fruit Like") {
-            copyOfPairs.splice(index, 1);
+        } else if (group === "Toasted") {
+          if (item.group === "Dairy" || item.group === "Fruit Like") {
+            filtered.push(item);
           }
-        }
-
-        if (group === "Medicinal") {
+        } else if (group === "Medicinal") {
           if (
-            item !== "Citrus" &&
-            item !== "Green" &&
-            item !== "Herbacious" &&
-            item !== "Sour"
+            item.group === "Citrus" ||
+            item.group === "Green" ||
+            item.group === "Herbacious" ||
+            item.group === "Sour"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Spice") {
+        } else if (group === "Spice") {
           if (
-            item !== "Berry" &&
-            item !== "Caramel" &&
-            item !== "Citrus" &&
-            item !== "Tropical" &&
-            item !== "Wood" &&
-            item !== "Smoke"
+            item.group === "Berry" ||
+            item.group === "Caramel" ||
+            item.group === "Citrus" ||
+            item.group === "Tropical" ||
+            item.group === "Wood" ||
+            item.group === "Smoke"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Smoke") {
+        } else if (group === "Smoke") {
           if (
-            item !== "Meaty" &&
-            item !== "Phenol" &&
-            item !== "Sour" &&
-            item !== "Spice"
+            item.group === "Meaty" ||
+            item.group === "Phenol" ||
+            item.group === "Sour" ||
+            item.group === "Spice"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Petrol") {
-          if (item !== "Roasted" && item !== "Tree Fruit") {
-            copyOfPairs.splice(index, 1);
+        } else if (group === "Petrol") {
+          if (item.group === "Roasted" || item.group === "Tree Fruit") {
+            filtered.push(item);
           }
-        }
-
-        if (group === "Wood") {
+        } else if (group === "Wood") {
           if (
-            item !== "Citrus" &&
-            item !== "Herbacious" &&
-            item !== "Nutty" &&
-            item !== "Spice" &&
-            item !== "Tropical"
+            item.group === "Citrus" ||
+            item.group === "Herbacious" ||
+            item.group === "Nutty" ||
+            item.group === "Spice" ||
+            item.group === "Tropical"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Marine") {
-          if (item !== "Roasted" && item !== "Sour" && item !== "Savory") {
-            copyOfPairs.splice(index, 1);
-          }
-        }
-
-        if (group === "Sour") {
+        } else if (group === "Marine") {
           if (
-            item !== "Marine" &&
-            item !== "Medcinal" &&
-            item !== "Smoke" &&
-            item !== "Pungent"
+            item.group === "Roasted" ||
+            item.group === "Sour" ||
+            item.group === "Savory"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Savory") {
+        } else if (group === "Sour") {
           if (
-            item !== "Alcohol" &&
-            item !== "Caramel" &&
-            item !== "Marine" &&
-            item !== "Melon" &&
-            item !== "Meaty" &&
-            item !== "Tree Fruit" &&
-            item !== "Tropical"
+            item.group === "Marine" ||
+            item.group === "Medcinal" ||
+            item.group === "Smoke" ||
+            item.group === "Pungent"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Fruit Like") {
+        } else if (group === "Savory") {
           if (
-            item !== "Chocolate" &&
-            item !== "Caramel" &&
-            item !== "Nutty" &&
-            item !== "Melon" &&
-            item !== "Meaty" &&
-            item !== "Tree Fruit" &&
-            item !== "Toasted" &&
-            item !== "Roasted"
+            item.group === "Alcohol" ||
+            item.group === "Caramel" ||
+            item.group === "Marine" ||
+            item.group === "Melon" ||
+            item.group === "Meaty" ||
+            item.group === "Tree Fruit" ||
+            item.group === "Tropical"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Green") {
-          if (item !== "Medicinal" && item !== "Melon") {
-            copyOfPairs.splice(index, 1);
-          }
-        }
-
-        if (group === "Herbacious") {
-          if (item !== "Medicinal" && item !== "Green" && item !== "Wood") {
-            copyOfPairs.splice(index, 1);
-          }
-        }
-
-        if (group === "Alcohol") {
+        } else if (group === "Fruit Like") {
           if (
-            item !== "Chocolate" &&
-            item !== "Caramel" &&
-            item !== "Citrus" &&
-            item !== "Dairy" &&
-            item !== "Meaty" &&
-            item !== "Savory"
+            item.group === "Chocolate" ||
+            item.group === "Caramel" ||
+            item.group === "Nutty" ||
+            item.group === "Melon" ||
+            item.group === "Meaty" ||
+            item.group === "Tree Fruit" ||
+            item.group === "Toasted" ||
+            item.group === "Roasted"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Sulphur") {
-          if (
-            item !== "Citrus" &&
-            item !== "Melon" &&
-            item !== "Nutty" &&
-            item !== "Roasted"
-          ) {
-            copyOfPairs.splice(index, 1);
+        } else if (group === "Green") {
+          if (item.group === "Medicinal" || item.group === "Melon") {
+            filtered.push(item);
           }
-        }
-
-        if (group === "Dairy") {
+        } else if (group === "Herbacious") {
           if (
-            item !== "Alcohol" &&
-            item !== "Chocolate" &&
-            item !== "Earthy" &&
-            item !== "Floral" &&
-            item !== "Toasted" &&
-            item !== "Tree Fruit" &&
-            item !== "Tropical"
+            item.group === "Medicinal" ||
+            item.group === "Green" ||
+            item.group === "Wood"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
           }
-        }
-
-        if (group === "Floral") {
+        } else if (group === "Alcohol") {
           if (
-            item !== "Berry" &&
-            item !== "Dairy" &&
-            item !== "Earthy" &&
-            item !== "Pungent" &&
-            item !== "Tree Fruit" &&
-            item !== "Tropical"
+            item.group === "Chocolate" ||
+            item.group === "Caramel" ||
+            item.group === "Citrus" ||
+            item.group === "Dairy" ||
+            item.group === "Meaty" ||
+            item.group === "Savory"
           ) {
-            copyOfPairs.splice(index, 1);
+            filtered.push(item);
+          }
+        } else if (group === "Sulphur") {
+          if (
+            item.group === "Citrus" ||
+            item.group === "Melon" ||
+            item.group === "Nutty" ||
+            item.group === "Roasted"
+          ) {
+            filtered.push(item);
+          }
+        } else if (group === "Dairy") {
+          if (
+            item.group === "Alcohol" ||
+            item.group === "Chocolate" ||
+            item.group === "Earthy" ||
+            item.group === "Floral" ||
+            item.group === "Toasted" ||
+            item.group === "Tree Fruit" ||
+            item.group === "Tropical"
+          ) {
+            filtered.push(item);
+          }
+        } else if (group === "Floral") {
+          if (
+            item.group === "Berry" ||
+            item.group === "Dairy" ||
+            item.group === "Earthy" ||
+            item.group === "Pungent" ||
+            item.group === "Tree Fruit" ||
+            item.group === "Tropical"
+          ) {
+            filtered.push(item);
           }
         }
       });
+      setPairs(filtered);
     }
 
     if (props.clicks === 1) {
       props.setThird(name);
       props.incClicks(2);
     }
-    setPairs(copyOfPairs);
   };
 
   return (
     <div className="pairingContainer">
       <div className="pairingContainer__buttons">
-        <form>
-          <input
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            type="text"
-            name="search"
-          />
-          {!sortScoreBtnClicked ? (
-            <button onClick={sortByScore}>sort by best match</button>
-          ) : (
-            <button onClick={sortByGroup}>sort by group</button>
-          )}
-          {!sortNameBtnClicked ? (
-            <button onClick={sortByName}>sort by name</button>
-          ) : (
-            <button onClick={(e) => sortByGroup}>sort by group</button>
-          )}
-        </form>
+        {props.clicks < 2 ? (
+          <button onClick={sortByScore}>sort by best match</button>
+        ) : (
+          <button onClick={sortByGroup}>Reset</button>
+        )}
+        {props.clicks < 2 ? (
+          <button onClick={sortByName}>sort by name</button>
+        ) : null}
       </div>
       <div>
         {pairs.map((pair) => {

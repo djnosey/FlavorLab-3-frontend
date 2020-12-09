@@ -53,20 +53,6 @@ function FlavourPairingPage(props) {
     setClicks(num);
   };
 
-  const decClicks = (num) => {
-    setClicks(num);
-  };
-
-  const reset = () => {
-    setSecond("");
-    setThird("");
-    decClicks(0);
-    const currentIngredient = allIngredients.filter(
-      (ingredient) => ingredient._id === id
-    );
-    setIngredient(currentIngredient);
-  };
-
   return (
     <div className="flavour-pairing-page__container">
       <div className="flavour-pairing-page__leftside">
@@ -74,7 +60,6 @@ function FlavourPairingPage(props) {
           setSecond={setSecond}
           setThird={setThird}
           incClicks={incClicks}
-          decClicks={decClicks}
           ingredient={ingredient}
           clicks={clicks}
         />
@@ -86,12 +71,10 @@ function FlavourPairingPage(props) {
           ingredient={ingredient}
           secondIngredient={secondPick}
           thirdIngredient={thirdPick}
+          incClicks={incClicks}
           setSecond={setSecond}
           setThird={setThird}
           clicks={clicks}
-          incClicks={incClicks}
-          decClicks={decClicks}
-          reset={reset}
         />
       </div>
     </div>

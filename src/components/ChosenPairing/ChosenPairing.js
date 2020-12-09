@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 function ChosenPairing(props) {
+  const history = useHistory();
   const [ingredient, setIngredient] = useState({ name: "", image: "" });
   const [currentId, setCurrentId] = useState("");
 
@@ -23,7 +25,7 @@ function ChosenPairing(props) {
     }
     props.setSecond("");
     props.setThird("");
-    props.decClicks(0);
+    props.incClicks(0);
   };
 
   const prevIngredient = () => {
@@ -37,7 +39,12 @@ function ChosenPairing(props) {
     }
     props.setSecond("");
     props.setThird("");
-    props.decClicks(0);
+    props.incClicks(0);
+  };
+
+  const handleRecipeClick = () => {
+    let string = `?ingredients=${ingredient.name},+${props.secondIngredient},+${props.thirdIngredient}&number=1`;
+    history.push(`/results/${string}`);
   };
 
   return (
@@ -47,13 +54,9 @@ function ChosenPairing(props) {
       <button onClick={nextIngredient}>next</button>
       <h1>{props.secondIngredient}</h1>
       <h1>{props.thirdIngredient}</h1>
-      {props.clicks === 1 ? (
-        <button onClick={props.reset}>Reset!</button>
-      ) : null}
       {props.clicks === 2 ? (
         <div>
-          <button>get me a recipe!</button>
-          <button onClick={props.reset}>Reset!</button>
+          <button onClick={handleRecipeClick}>get me a recipe!</button>
         </div>
       ) : null}
     </div>

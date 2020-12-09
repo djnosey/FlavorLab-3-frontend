@@ -4,13 +4,13 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Private from "./pages/Private";
 
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/NavBar/Navbar";
 import Primary from "./pages/Primary";
 import FlavourPairingPage from "./pages/FlavourPairingPage";
+import Results from "./pages/Results";
 
 class App extends Component {
   render() {
@@ -29,7 +29,7 @@ class App extends Component {
             path="/pairing/:id"
             component={FlavourPairingPage}
           />
-          <PrivateRoute exact path="/private" component={Private} />
+          <PrivateRoute exact path="/results/" component={Results} />
         </Switch>
       </div>
     );
