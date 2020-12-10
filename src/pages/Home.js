@@ -1,4 +1,6 @@
 import React from "react";
+import { withAuth } from "./../context/auth-context";
+
 function Home() {
   return (
     <div className="home__container">
@@ -7,4 +9,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default withAuth(Home);

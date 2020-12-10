@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-
+import ProfilePage from "./pages/ProfilePage";
 import AnonRoute from "./components/AnonRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import Navbar from "./components/NavBar/Navbar";
@@ -30,6 +30,7 @@ class App extends Component {
             component={FlavourPairingPage}
           />
           <PrivateRoute exact path="/results/" component={Results} />
+          <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
         </Switch>
       </div>
     );

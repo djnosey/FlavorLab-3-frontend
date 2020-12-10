@@ -18,12 +18,19 @@ function Navbar(props) {
     history.push("/signup");
   };
 
+  const handleProfileClick = () => {
+    history.push(`/profile/${props.user._id}`);
+  };
+
   return (
     <div className="navbar__container">
       {props.isLoggedIn ? (
         <div className="navbar__username-container">
           <button onClick={handleSignOut} className="navbar__button">
             Sign out
+          </button>
+          <button onClick={handleProfileClick} className="navbar__button">
+            Profile
           </button>
         </div>
       ) : (

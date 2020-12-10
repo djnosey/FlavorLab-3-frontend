@@ -43,7 +43,7 @@ function ChosenPairing(props) {
   };
 
   const handleRecipeClick = () => {
-    let string = `?ingredients=${ingredient.name},+${props.secondIngredient},+${props.thirdIngredient}&number=1`;
+    let string = `?ingredients=${ingredient.name},+${props.secondIngredient},+${props.thirdIngredient}&number=5`;
     history.push(`/results/${string}`);
   };
 
