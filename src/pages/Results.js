@@ -6,7 +6,6 @@ import axios from "axios";
 function Results(props) {
   let history = useHistory();
 
-  const [savedRecipe, setSavedRecipe] = useState({});
   const [recipe, setRecipe] = useState([]);
   const [wine, setWine] = useState(null);
   const [user, setUser] = useState(null);
@@ -17,8 +16,7 @@ function Results(props) {
   useEffect(() => {
     setUser(props.user);
   }, [props.user]);
-  
-  
+
   let slicedString = props.location.search.slice(13);
   let indexOfFirstComma = slicedString.indexOf(",");
   let slicedString2 = slicedString.slice(indexOfFirstComma + 2);
@@ -28,13 +26,10 @@ function Results(props) {
   let slicedString3 = slicedString2.slice(indexOfSecondComma + 2, -9);
   let thirdIngredient = slicedString3;
 
-
   useEffect(() => {
     setCombination(`${firstIngredient} ${secondIngredient} ${thirdIngredient}`);
   }, [firstIngredient, secondIngredient, thirdIngredient]);
 
-
-  
   useEffect(() => {
     axios
       .get(
@@ -44,7 +39,6 @@ function Results(props) {
         setRecipe(response.data);
       });
   }, [props.location.search]);
-
 
   useEffect(() => {
     axios
@@ -91,6 +85,10 @@ function Results(props) {
     let recep = singleRecipe.title;
     let img = singleRecipe.image;
     let combo = combination;
+    const copyOfRecipe = [...recipe];
+    const recipeIndex = copyOfRecipe.findIndex((recipe) => recipe.id === id);
+    copyOfRecipe.splice(recipeIndex, 1, { title: "Saved", image: img });
+    setRecipe(copyOfRecipe);
     saveRecipe(combo, recep, img);
   };
 
@@ -106,16 +104,14 @@ function Results(props) {
         { withCredentials: true }
       )
       .then(() => {
-        history.push(`/profile/${user._id}`);
+        // history.push(`/profile/${user._id}`);
       })
       .catch((err) => console.log(err));
   };
 
-  console.log(savedRecipe);
-
   return (
     <div>
-      {recipe.map((recipe, index) => {
+      {recipe.map((recipe) => {
         return (
           <div key={recipe.id}>
             <div>

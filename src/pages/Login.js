@@ -13,7 +13,6 @@ function Login(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.login(email, password);
-    
   };
 
   return (
