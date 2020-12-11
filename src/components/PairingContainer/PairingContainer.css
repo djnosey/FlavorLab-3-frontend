@@ -3,3 +3,9 @@
   padding: 4px;
   cursor: pointer;
 }
+
+.matches {
+  display: flex;
+  width: 75%;
+  flex-wrap: wrap;
+}

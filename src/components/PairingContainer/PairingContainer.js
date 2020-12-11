@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useFlip, FlipProvider, AnimateInOut } from "react-easy-flip";
+
 import "./PairingContainer.css";
 
 function PairingContainer(props) {
@@ -7,6 +9,12 @@ function PairingContainer(props) {
   });
   const [pairs, setPairs] = useState([]);
   const [pairsCopy, setPairsCopy] = useState([]);
+
+  const animationOptions = {
+    duration: 1000,
+  };
+
+  useFlip("pair-root", animationOptions);
 
   useEffect(() => {
     props.ingredient[0] && setIngredient(props.ingredient[0]);
@@ -334,31 +342,36 @@ function PairingContainer(props) {
   };
 
   return (
-    <div className="pairingContainer">
-      <div className="pairingContainer__buttons">
-        {props.clicks < 2 ? (
-          <button onClick={sortByScore}>sort by best match</button>
-        ) : (
-          <button onClick={sortByGroup}>Reset</button>
-        )}
-        {props.clicks < 2 ? (
-          <button onClick={sortByName}>sort by name</button>
-        ) : null}
+    <FlipProvider>
+      <div data-flip-root-id="pair-root" className="pairingContainer">
+        <div className="pairingContainer__buttons">
+          {props.clicks < 2 ? (
+            <button onClick={sortByScore}>sort by best match</button>
+          ) : (
+            <button onClick={sortByGroup}>Reset</button>
+          )}
+          {props.clicks < 2 ? (
+            <button onClick={sortByName}>sort by name</button>
+          ) : null}
+        </div>
+        <AnimateInOut playOnFirstRender>
+          <div key="1" className="matches" data-flip-id="pairdiv">
+            {pairs.map((pair) => {
+              return (
+                <p
+                  key={pair}
+                  onClick={() => reducePairs(pair.group, pair.name)}
+                  className="pairingContainer__pair"
+                >
+                  <span>{pair.name}</span>...
+                  <span>{pair.score}</span>
+                </p>
+              );
+            })}
+          </div>
+        </AnimateInOut>
       </div>
-      <div>
-        {pairs.map((pair) => {
-          return (
-            <p
-              onClick={() => reducePairs(pair.group, pair.name)}
-              className="pairingContainer__pair"
-            >
-              <span>{pair.name}</span>...
-              <span>{pair.score}</span>
-            </p>
-          );
-        })}
-      </div>
-    </div>
+    </FlipProvider>
   );
 }
 

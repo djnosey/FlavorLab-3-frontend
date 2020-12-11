@@ -6,14 +6,9 @@ import recipeService from "./../lib/recipe-service";
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
   const [wine, setWine] = useState(null);
-  const [user, setUser] = useState(null);
   const [combination, setCombination] = useState("");
 
   const APIKEY = "&apiKey=9849677a7a764db688297b62861624a1";
-
-  useEffect(() => {
-    setUser(props.user);
-  }, [props.user]);
 
   let slicedString = props.location.search.slice(13);
   let indexOfFirstComma = slicedString.indexOf(",");
