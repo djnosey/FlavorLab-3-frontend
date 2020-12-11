@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
-import axios from "axios";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
 
