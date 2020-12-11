@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 import { withAuth } from "./../context/auth-context";
 import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
 import ProfileRecipes from "../components/ProfileRecipes/ProfileRecipes";
 import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm";
 import userService from "./../lib/user-service";
-
+import favoriteService from "./../lib/favorite-service";
 function ProfilePage(props) {
   const history = useHistory();
   const [userProfile, setUserProfile] = useState({
@@ -18,33 +17,43 @@ function ProfilePage(props) {
   const { id } = props.match.params;
 
   useEffect(() => {
-    userService.getUser(id).then((user) => {
-      setUserProfile(user);
-    });
+    userService
+      .getUser(id)
+      .then((user) => {
+        setUserProfile(user);
+      })
+      .catch((err) => console.log(err));
   }, [id]);
 
   const deleteRecipeFromProfile = (id) => {
-    axios
-      .delete(`http://localhost:5000/api/favorite/${id}`, {
-        withCredentials: true,
-      })
+    favoriteService
+      .deleteFavorite(id)
       .then(() => {
-        history.push(`/profile/${props.match.params.id}`);
-      });
+        userService.getUser(userProfile._id).then((user) => {
+          setUserProfile(user);
+        });
+      })
+      .catch((err) => console.log(err));
   };
 
   const deleteProfile = () => {
     props.logout();
-    userService.deleteUser(id).then(() => {
-      history.push("/");
-    });
+    userService
+      .deleteUser(id)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleUpdate = (e, name, email) => {
     e.preventDefault();
-    userService.updateUser(id, name, email).then((user) => {
-      setUserProfile(user);
-    });
+    userService
+      .updateUser(id, name, email)
+      .then((user) => {
+        setUserProfile(user);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

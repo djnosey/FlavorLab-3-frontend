@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
 import axios from "axios";
+import favoriteService from "./../lib/favorite-service";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
@@ -90,16 +91,8 @@ function Results(props) {
   };
 
   const saveRecipe = (combo, recep, img) => {
-    axios
-      .post(
-        "http://localhost:5000/api/favorite",
-        {
-          combination: combo,
-          recipe: recep,
-          image: img,
-        },
-        { withCredentials: true }
-      )
+    favoriteService
+      .addFavorite(combo, recep, img)
       .then(() => {})
       .catch((err) => console.log(err));
   };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import PairingContainer from "../components/PairingContainer/PairingContainer";
 import ChosenPairing from "../components/ChosenPairing/ChosenPairing";
 import ingredientService from "./../lib/ingredients-service";
