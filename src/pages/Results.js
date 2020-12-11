@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { withAuth } from "./../context/auth-context";
 import axios from "axios";
 
 function Results(props) {
-  let history = useHistory();
-
   const [recipe, setRecipe] = useState([]);
   const [wine, setWine] = useState(null);
   const [user, setUser] = useState(null);
@@ -103,9 +100,7 @@ function Results(props) {
         },
         { withCredentials: true }
       )
-      .then(() => {
-        // history.push(`/profile/${user._id}`);
-      })
+      .then(() => {})
       .catch((err) => console.log(err));
   };
 

@@ -1,0 +1,33 @@
+.homeInfo__container {
+  color: white;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.homeInfo__item {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-right: 50px;
+  width: 150px;
+  height: 150px;
+}
+
+.homeInfo__item-title {
+  font-style: italic;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+.homeInfo__item-text {
+  font-weight: 100;
+  font-size: 20px;
+  font-family: "Source Sans Pro", sans-serif;
+}
+.center {
+  justify-content: center;
+}
+.small {
+  width: 40px;
+}

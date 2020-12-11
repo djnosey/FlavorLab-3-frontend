@@ -51,17 +51,20 @@ function ProfilePage(props) {
         email={userProfile.email}
         deleteProfile={deleteProfile}
       />
-      {userProfile.favorites.map((item) => {
-        return (
-          <ProfileRecipes
-            recipe={item.recipe}
-            combination={item.combination}
-            image={item.image}
-            deleteRecipe={deleteRecipeFromProfile}
-            id={item._id}
-          />
-        );
-      })}
+
+      <div>
+        {userProfile.favorites.map((item) => {
+          return (
+            <ProfileRecipes
+              recipe={item.recipe}
+              combination={item.combination}
+              image={item.image}
+              deleteRecipe={deleteRecipeFromProfile}
+              id={item._id}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

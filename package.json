@@ -12,6 +12,7 @@
     "react-mobile-picker-scroll": "^0.2.14",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
+    "react-router-transition": "^2.0.0",
     "react-scripts": "4.0.0"
   },
   "scripts": {

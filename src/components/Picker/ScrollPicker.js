@@ -90,6 +90,8 @@ class ScrollPicker extends Component {
         optionGroups={optionGroups}
         valueGroups={valueGroups}
         onChange={this.handleChange}
+        itemHeight={55}
+        height={500}
       />
     );
   }
