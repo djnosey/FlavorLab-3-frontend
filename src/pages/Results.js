@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
 import axios from "axios";
 import favoriteService from "./../lib/favorite-service";
+import recipeService from "./../lib/recipe-service";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
@@ -28,54 +29,39 @@ function Results(props) {
     setCombination(`${firstIngredient} ${secondIngredient} ${thirdIngredient}`);
   }, [firstIngredient, secondIngredient, thirdIngredient]);
 
-  useEffect(() => {
-    axios
-      .get(
-        `https://api.spoonacular.com/recipes/findByIngredients${props.location.search}${APIKEY}`
-      )
-      .then((response) => {
-        setRecipe(response.data);
-      });
-  }, [props.location.search]);
+  const recipeSearch = props.location.search;
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.spoonacular.com/food/wine/pairing?food=${firstIngredient}${APIKEY}`
-      )
-      .then((response) => {
-        if (
-          response.data.hasOwnProperty("status") ||
-          response.data.pairedWines.length === 0
-        ) {
-          axios
-            .get(
-              `https://api.spoonacular.com/food/wine/pairing?food=${secondIngredient}${APIKEY}`
-            )
-            .then((response) => {
-              if (
-                response.data.hasOwnProperty("status") ||
-                response.data.pairedWines.length === 0
-              ) {
-                axios
-                  .get(
-                    `https://api.spoonacular.com/food/wine/pairing?food=${thirdIngredient}${APIKEY}`
-                  )
-                  .then((response) => {
-                    setWine(response.data);
-                  });
-              } else {
-                setWine(response.data);
-              }
-            });
+    recipeService.getrecipes(recipeSearch, APIKEY).then((response) => {
+      setRecipe(response);
+    });
+  }, [recipeSearch]);
+
+  useEffect(() => {
+    recipeService
+      .getWine(firstIngredient, APIKEY)
+      .then((wine) => {
+        if (wine.hasOwnProperty("status") || wine.pairedWines.length === 0) {
+          recipeService.getWine(secondIngredient, APIKEY).then((wine) => {
+            if (
+              wine.hasOwnProperty("status") ||
+              wine.pairedWines.length === 0
+            ) {
+              recipeService.getWine(thirdIngredient, APIKEY).then((wine) => {
+                setWine(wine);
+              });
+            } else {
+              setWine(wine);
+            }
+          });
         } else {
-          setWine(response.data);
+          setWine(wine);
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.location.search]);
+  }, [recipeSearch, firstIngredient, secondIngredient, thirdIngredient]);
 
   const handleClick = (e, id) => {
     e.preventDefault();

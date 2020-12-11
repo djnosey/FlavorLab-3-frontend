@@ -15,7 +15,7 @@ function FlavourPairingPage(props) {
   useEffect(() => {
     ingredientService.getAll().then((ingredients) => {
       setAllIngredients(ingredients);
-    });
+    }).catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
