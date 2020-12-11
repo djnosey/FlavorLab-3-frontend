@@ -1,0 +1,56 @@
+.ingredientInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+.ingredientInfo__top {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredientinfo__details {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+
+#ingredientHeader {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 70px;
+  font-weight: 700;
+}
+
+.ingredientSubtitle {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.ingredientInfo__pairs {
+  display: flex;
+}
+
+#ingredientImage {
+  width: 400px;
+  height: 400px;
+  object-fit: contain;
+  margin-right: 80px;
+}
+
+.ingredientParagraph {
+  font-size: 20px;
+  font-weight: 500;
+}
+.ingredientInfo__best {
+  margin-right: 50px;
+
+  padding: 20px;
+}
+
+.ingredientInfo__surprise {
+  padding: 20px;
+}

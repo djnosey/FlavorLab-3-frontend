@@ -1,23 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import "./ingredientInfo.css";
 
 function IngredientInfo(props) {
+  //props.ingredient[0].blablablabl
+
+  const [ingredient, setIngredient] = useState();
+
+  useEffect(() => {
+    setIngredient(props.ingredient[0]);
+  }, [props]);
+
   return (
-    <div>
-      {props.ingredient[0] ? (
-        <h1>Name: {props.ingredient[0].name} </h1>
-      ) : (
-        <h1>Name: Alliums</h1>
-      )}
-      {props.ingredient[0] ? (
-        <h1>Main Group: {props.ingredient[0].group}</h1>
-      ) : (
-        <h1>Main Group: Sulphur</h1>
-      )}
-      {props.ingredient[0] ? (
-        <h1>Sub Group: {props.ingredient[0].subGroup}</h1>
-      ) : (
-        <h1>Sub Group: Sulphur</h1>
-      )}
+    <div className="ingredientInfo">
+      <div className="ingredientInfo__top">
+        <h1 id="ingredientHeader">{ingredient?.name}</h1>
+        <div className="ingredientInfo__subs">
+          <h3 className="ingredientSubtitle">Common types and substitutes:</h3>
+          {ingredient?.substitutes.map((item) => {
+            return <span className="ingredientParagraph">{item}, </span>;
+          })}
+        </div>
+        <div className="ingredientinfo__details">
+          <div className="ingredientinfo__image">
+            <img
+              id="ingredientImage"
+              src={ingredient?.image}
+              alt={ingredient?.name}
+            />
+          </div>
+          <div className="ingredientInfo__pairs">
+            <div className="ingredientInfo__best">
+              <h3 className="ingredientSubtitle">Best Pairings:</h3>
+              {ingredient?.bestPairs.map((item) => {
+                return <li className="ingredientParagraph">{item}</li>;
+              })}
+            </div>
+            <div className="ingredientInfo__surprise">
+              <h3 className="ingredientSubtitle">Surprise Pairings:</h3>
+              {ingredient?.suprisePairs.map((item) => {
+                return <li className="ingredientParagraph">{item}</li>;
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="ingredientInfo__bottom">
+        <p className="ingredientParagraph">{ingredient?.description}</p>
+      </div>
     </div>
   );
 }

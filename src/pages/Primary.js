@@ -15,6 +15,7 @@ function Primary(props) {
       .get("http://localhost:5000/api/ingredient", { withCredentials: true })
       .then((response) => {
         setAllIngredients(response.data);
+        setSelectedIngredient("Alliums");
       });
   }, []);
 
@@ -37,11 +38,11 @@ function Primary(props) {
         <ScrollPicker names={namesArray} findIngredient={findIngredient} />
         {props.isLoggedIn ? (
           <Link to={`/pairing/${SingleIngredientObject[0]?._id}`}>
-            <button>start pairing logged in</button>
+            <button className="navbar__button">start pairing logged in</button>
           </Link>
         ) : (
           <Link to="/login">
-            <button>start pairing logged out</button>
+            <button className="navbar__button">start pairing logged out</button>
           </Link>
         )}
       </div>

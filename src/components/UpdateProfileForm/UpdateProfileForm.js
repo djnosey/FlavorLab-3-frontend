@@ -1,12 +1,9 @@
-import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { withAuth } from "../../context/auth-context";
-import axios from "axios";
 
 function UpdateProfileForm(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [user, setUser] = useState({});
 
   useEffect(() => {
     setName(props.name);
