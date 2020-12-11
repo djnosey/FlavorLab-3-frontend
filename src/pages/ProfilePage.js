@@ -4,6 +4,7 @@ import axios from "axios";
 import { withAuth } from "./../context/auth-context";
 import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
 import ProfileRecipes from "../components/ProfileRecipes/ProfileRecipes";
+import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm";
 
 function ProfilePage(props) {
   const history = useHistory();
@@ -44,12 +45,31 @@ function ProfilePage(props) {
       });
   };
 
+  const handleUpdate = (e, name, email) => {
+    e.preventDefault();
+    axios
+      .put(
+        `http://localhost:5000/api/user/${props.match.params.id}`,
+        { name, email },
+        { withCredentials: true }
+      )
+      .then(() => {
+        history.push(`/profile/${props.match.params.id}`);
+      });
+  };
+
   return (
     <div>
       <ProfileDetails
         name={userProfile.name}
         email={userProfile.email}
         deleteProfile={deleteProfile}
+      />
+
+      <UpdateProfileForm
+        name={userProfile.name}
+        email={userProfile.email}
+        update={handleUpdate}
       />
 
       <div>
