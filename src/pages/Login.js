@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
+import { motion } from "framer";
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ function Login(props) {
   };
 
   return (
-    <div>
+    <motion.div exit={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -42,7 +43,7 @@ function Login(props) {
           <p>looks like that email doesn't have an account!</p>
         ) : null}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

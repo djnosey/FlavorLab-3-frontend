@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
+import { motion } from "framer";
 
 function Signup(props) {
   const [name, setName] = useState("");
@@ -17,7 +18,7 @@ function Signup(props) {
   };
 
   return (
-    <div>
+    <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -51,7 +52,7 @@ function Signup(props) {
           <p>I think you forgot to fill in the form!</p>
         ) : null}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

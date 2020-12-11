@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
+import { motion } from "framer";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
@@ -78,7 +79,7 @@ function Results(props) {
   };
 
   return (
-    <div>
+    <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       {recipe.map((recipe) => {
         return (
           <div key={recipe.id}>
@@ -104,7 +105,7 @@ function Results(props) {
       ) : (
         wine.pairingText
       )}
-    </div>
+    </motion.div>
   );
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PairingContainer from "../components/PairingContainer/PairingContainer";
 import ChosenPairing from "../components/ChosenPairing/ChosenPairing";
 import ingredientService from "./../lib/ingredients-service";
-
+import { motion } from "framer";
 function FlavourPairingPage(props) {
   const [allIngredients, setAllIngredients] = useState([]);
   const [ingredient, setIngredient] = useState({});
@@ -13,9 +13,12 @@ function FlavourPairingPage(props) {
   const [clicks, setClicks] = useState(0);
 
   useEffect(() => {
-    ingredientService.getAll().then((ingredients) => {
-      setAllIngredients(ingredients);
-    }).catch((err) => console.log(err));
+    ingredientService
+      .getAll()
+      .then((ingredients) => {
+        setAllIngredients(ingredients);
+      })
+      .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
@@ -50,7 +53,11 @@ function FlavourPairingPage(props) {
   };
 
   return (
-    <div className="flavour-pairing-page__container">
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="flavour-pairing-page__container"
+    >
       <div className="flavour-pairing-page__leftside">
         <PairingContainer
           setSecond={setSecond}
@@ -73,7 +80,7 @@ function FlavourPairingPage(props) {
           clicks={clicks}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

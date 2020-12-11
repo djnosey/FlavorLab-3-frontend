@@ -4,6 +4,7 @@ import ScrollPicker from "../components/Picker/ScrollPicker";
 import IngredientInfo from "../components/IngredientInfo/IngredientInfo";
 import { withAuth } from "./../context/auth-context";
 import ingredientService from "./../lib/ingredients-service";
+import { motion } from "framer";
 
 function Primary(props) {
   const [allIngredients, setAllIngredients] = useState([]);
@@ -31,7 +32,11 @@ function Primary(props) {
   };
 
   return (
-    <div className="primary__container">
+    <motion.div
+      exit={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="primary__container"
+    >
       <div className="primary__left">
         <ScrollPicker names={namesArray} findIngredient={findIngredient} />
         {props.isLoggedIn ? (
@@ -47,7 +52,7 @@ function Primary(props) {
       <div className="primary__right">
         <IngredientInfo ingredient={SingleIngredientObject} />
       </div>
-    </div>
+    </motion.div>
   );
 }
 

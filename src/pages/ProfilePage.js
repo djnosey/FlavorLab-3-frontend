@@ -6,6 +6,7 @@ import ProfileRecipes from "../components/ProfileRecipes/ProfileRecipes";
 import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm";
 import userService from "./../lib/user-service";
 import favoriteService from "./../lib/favorite-service";
+import { motion } from "framer";
 function ProfilePage(props) {
   const history = useHistory();
   const [userProfile, setUserProfile] = useState({
@@ -57,7 +58,7 @@ function ProfilePage(props) {
   };
 
   return (
-    <div>
+    <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <ProfileDetails
         name={userProfile.name}
         email={userProfile.email}
@@ -83,7 +84,7 @@ function ProfilePage(props) {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

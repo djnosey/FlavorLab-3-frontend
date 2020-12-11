@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -11,16 +11,21 @@ import Navbar from "./components/NavBar/Navbar";
 import Primary from "./pages/Primary";
 import FlavourPairingPage from "./pages/FlavourPairingPage";
 import Results from "./pages/Results";
+import { AnimatePresence } from "framer";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="container">
-        <Navbar />
-
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/primary" component={Primary} />
+function App() {
+  const location = useLocation();
+  return (
+    <div className="container">
+      <Navbar />
+      <AnimatePresence>
+        <Switch location={location} key={location.key}>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/primary">
+            <Primary />
+          </Route>
 
           <AnonRoute exact path="/signup" component={Signup} />
           <AnonRoute exact path="/login" component={Login} />
@@ -32,9 +37,9 @@ class App extends Component {
           <PrivateRoute exact path="/results/" component={Results} />
           <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
         </Switch>
-      </div>
-    );
-  }
+      </AnimatePresence>
+    </div>
+  );
 }
 
 export default App;
