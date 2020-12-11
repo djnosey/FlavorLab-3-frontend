@@ -86,7 +86,7 @@ function PairingContainer(props) {
             item.group === "Fruit Like" ||
             item.group === "Green" ||
             item.group === "Suplhur" ||
-            item.group === "Savory"
+            item.group === "Savoury"
           ) {
             filtered.push(item);
           }
@@ -97,7 +97,7 @@ function PairingContainer(props) {
             item.group === "Floral" ||
             item.group === "Fruit Like" ||
             item.group === "Roasted" ||
-            item.group === "Savory" ||
+            item.group === "Savoury" ||
             item.group === "Petrol"
           ) {
             filtered.push(item);
@@ -108,7 +108,7 @@ function PairingContainer(props) {
             item.group === "Floral" ||
             item.group === "Fruit Like" ||
             item.group === "Wood" ||
-            item.group === "Savory" ||
+            item.group === "Savoury" ||
             item.group === "Spice"
           ) {
             filtered.push(item);
@@ -129,7 +129,7 @@ function PairingContainer(props) {
           if (
             item.group === "Alcohol" ||
             item.group === "Fruit Like" ||
-            item.group === "Savory" ||
+            item.group === "Savoury" ||
             item.group === "Spice" ||
             item.group === "Nutty"
           ) {
@@ -154,7 +154,7 @@ function PairingContainer(props) {
             item.group === "Dried Fruit" ||
             item.group === "Fruit Like" ||
             item.group === "Earthy" ||
-            item.group === "Savory" ||
+            item.group === "Savoury" ||
             item.group === "Smoke"
           ) {
             filtered.push(item);
@@ -230,7 +230,7 @@ function PairingContainer(props) {
           if (
             item.group === "Roasted" ||
             item.group === "Sour" ||
-            item.group === "Savory"
+            item.group === "Savoury"
           ) {
             filtered.push(item);
           }
@@ -243,7 +243,7 @@ function PairingContainer(props) {
           ) {
             filtered.push(item);
           }
-        } else if (group === "Savory") {
+        } else if (group === "Savoury") {
           if (
             item.group === "Alcohol" ||
             item.group === "Caramel" ||
@@ -287,7 +287,7 @@ function PairingContainer(props) {
             item.group === "Citrus" ||
             item.group === "Dairy" ||
             item.group === "Meaty" ||
-            item.group === "Savory"
+            item.group === "Savoury"
           ) {
             filtered.push(item);
           }
