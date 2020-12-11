@@ -5,6 +5,7 @@ import { withAuth } from "./../context/auth-context";
 import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
 import ProfileRecipes from "../components/ProfileRecipes/ProfileRecipes";
 import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm";
+import userService from "./../lib/user-service";
 
 function ProfilePage(props) {
   const history = useHistory();
@@ -14,15 +15,13 @@ function ProfilePage(props) {
     name: "",
   });
 
+  const { id } = props.match.params;
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/user/${props.match.params.id}`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setUserProfile(response.data);
-      });
-  }, [props.match.params]);
+    userService.getUser(id).then((user) => {
+      setUserProfile(user);
+    });
+  }, [id]);
 
   const deleteRecipeFromProfile = (id) => {
     axios
@@ -36,26 +35,16 @@ function ProfilePage(props) {
 
   const deleteProfile = () => {
     props.logout();
-    axios
-      .delete(`http://localhost:5000/api/user/${props.match.params.id}`, {
-        withCredentials: true,
-      })
-      .then(() => {
-        history.push("/");
-      });
+    userService.deleteUser(id).then(() => {
+      history.push("/");
+    });
   };
 
   const handleUpdate = (e, name, email) => {
     e.preventDefault();
-    axios
-      .put(
-        `http://localhost:5000/api/user/${props.match.params.id}`,
-        { name, email },
-        { withCredentials: true }
-      )
-      .then(() => {
-        history.push(`/profile/${props.match.params.id}`);
-      });
+    userService.updateUser(id, name, email).then((user) => {
+      setUserProfile(user);
+    });
   };
 
   return (

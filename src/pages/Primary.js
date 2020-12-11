@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import ScrollPicker from "../components/Picker/ScrollPicker";
 import IngredientInfo from "../components/IngredientInfo/IngredientInfo";
 import { withAuth } from "./../context/auth-context";
+import ingredientService from "./../lib/ingredients-service";
 
 function Primary(props) {
   const [allIngredients, setAllIngredients] = useState([]);
@@ -11,12 +11,10 @@ function Primary(props) {
   const [SingleIngredientObject, setSingleIngredientObject] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/ingredient", { withCredentials: true })
-      .then((response) => {
-        setAllIngredients(response.data);
-        setSelectedIngredient("Alliums");
-      });
+    ingredientService.getAll().then((ingredients) => {
+      setAllIngredients(ingredients);
+      setSelectedIngredient("Alliums");
+    });
   }, []);
 
   const namesArray = allIngredients.map((item) => item.name);

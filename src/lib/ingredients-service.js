@@ -7,7 +7,6 @@ class IngredientService {
       withCredentials: true,
     });
   }
-
   getAll() {
     const pr = this.ingredient.get("/").then(({ data }) => data);
     return pr;

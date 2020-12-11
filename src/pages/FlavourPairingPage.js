@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PairingContainer from "../components/PairingContainer/PairingContainer";
 import ChosenPairing from "../components/ChosenPairing/ChosenPairing";
+import ingredientService from "./../lib/ingredients-service";
 
 function FlavourPairingPage(props) {
   const [allIngredients, setAllIngredients] = useState([]);
@@ -13,13 +14,9 @@ function FlavourPairingPage(props) {
   const [clicks, setClicks] = useState(0);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/ingredient`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setAllIngredients(response.data);
-      });
+    ingredientService.getAll().then((ingredients) => {
+      setAllIngredients(ingredients);
+    });
   }, []);
 
   useEffect(() => {
