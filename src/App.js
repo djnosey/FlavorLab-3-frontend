@@ -11,7 +11,6 @@ import Navbar from "./components/NavBar/Navbar";
 import Primary from "./pages/Primary";
 import FlavourPairingPage from "./pages/FlavourPairingPage";
 import Results from "./pages/Results";
-import { AnimatePresence } from "framer-motion";
 
 function App() {
   const location = useLocation();

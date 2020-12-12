@@ -1,0 +1,42 @@
+.chosen__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.chosen__container h3 {
+  font-size: 40px;
+  margin-bottom: 70px;
+}
+
+.chosen__header {
+  display: flex;
+  align-items: center;
+}
+
+.chosen__header button {
+  display: flex;
+  background-color: white;
+  align-items: center;
+  height: 40px;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 50px;
+}
+
+.chosen__imageAndTitle img {
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  margin: 25px 15px;
+}
+
+.chosen__imageAndTitle {
+  margin-top: 30px;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

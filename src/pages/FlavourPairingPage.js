@@ -40,6 +40,10 @@ function FlavourPairingPage(props) {
     setId(id);
   };
 
+  const resetIngredients = () => {
+    setIngredient(ingredient);
+  };
+
   const setSecond = (ingredient) => {
     setSecondPick(ingredient);
   };
@@ -70,6 +74,7 @@ function FlavourPairingPage(props) {
       <div className="flavour-pairing-page__rightside">
         <ChosenPairing
           chooseNew={changeId}
+          getAll={resetIngredients}
           idList={idArray}
           ingredient={ingredient}
           secondIngredient={secondPick}

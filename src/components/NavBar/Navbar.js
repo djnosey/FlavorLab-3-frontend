@@ -35,7 +35,7 @@ function Navbar(props) {
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 0.5 }}
           >
-            flavorlab
+            flavorlab.
           </motion.p>
         </Link>
       ) : (

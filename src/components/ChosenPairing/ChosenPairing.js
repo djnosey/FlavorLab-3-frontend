@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import "./ChosenPairing.css";
 
 function ChosenPairing(props) {
   const history = useHistory();
@@ -48,15 +49,33 @@ function ChosenPairing(props) {
   };
 
   return (
-    <div>
-      <button onClick={prevIngredient}>prev</button>
-      <h1>{ingredient.name}</h1>
-      <button onClick={nextIngredient}>next</button>
-      <h1>{props.secondIngredient}</h1>
-      <h1>{props.thirdIngredient}</h1>
+    <div className="chosen__container">
+      <div className="chosen__header">
+        <button onClick={prevIngredient}>{`<<`}</button>
+        <div className="chosen__imageAndTitle">
+          <h1>{ingredient.name}</h1>
+          <img src={ingredient.image} alt={ingredient.name} />
+        </div>
+        <button onClick={nextIngredient}>{`>>`}</button>
+      </div>
+
+      {props.secondIngredient ? (
+        <h3>
+          + <br></br>
+          {props.secondIngredient}
+        </h3>
+      ) : null}
+      {props.thirdIngredient ? (
+        <h3>
+          + <br></br>
+          {props.thirdIngredient}
+        </h3>
+      ) : null}
       {props.clicks === 2 ? (
         <div>
-          <button onClick={handleRecipeClick}>get me a recipe!</button>
+          <button className="navbar__button" onClick={handleRecipeClick}>
+            get me a recipe!
+          </button>
         </div>
       ) : null}
     </div>

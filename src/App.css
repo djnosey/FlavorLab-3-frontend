@@ -147,7 +147,8 @@ body {
   bottom: 100px;
   margin: 0 auto;
   background-color: black;
-  height: 91vh;
+  height: calc(100% - 80px);
+  width: 100vw;
 }
 
 .home__image {
@@ -207,7 +208,10 @@ body {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  width: 90%;
+  width: 95%;
+}
+.flavour-pairing-page__leftside {
+  width: 1300px;
 }
 
 /*LOGIN PAGE BASIC CSS*/

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-
+import { AnimatePresence, motion } from "framer-motion";
 import "./PairingContainer.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
+import { groupColors } from "./../../HelperFunctions/colourGroups";
 
 function PairingContainer(props) {
   const [ingredient, setIngredient] = useState({
@@ -8,6 +11,21 @@ function PairingContainer(props) {
   });
   const [pairs, setPairs] = useState([]);
   const [pairsCopy, setPairsCopy] = useState([]);
+
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.5,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: 0.7 } },
+  };
 
   useEffect(() => {
     props.ingredient[0] && setIngredient(props.ingredient[0]);
@@ -35,6 +53,25 @@ function PairingContainer(props) {
 
   const sortByGroup = (e) => {
     e.preventDefault();
+    let copyOfPairs = [...pairs];
+    copyOfPairs.sort((a, b) => a.group.localeCompare(b.group));
+    setPairs(copyOfPairs);
+  };
+
+  const handleSortChange = (e) => {
+    if (e.target.value === "group") {
+      sortByGroup(e);
+    }
+    if (e.target.value === "name") {
+      sortByName(e);
+    }
+    if (e.target.value === "match") {
+      sortByScore(e);
+    }
+  };
+
+  const resetList = (e) => {
+    e.preventDefault();
     setPairs(pairsCopy);
     props.setSecond("");
     props.setThird("");
@@ -49,7 +86,7 @@ function PairingContainer(props) {
       props.incClicks(1);
       props.setSecond(name);
 
-      copyOfPairs.forEach((item, index) => {
+      copyOfPairs.forEach((item) => {
         if (group === "Earthy") {
           if (
             item.group === "Chocolate" ||
@@ -337,28 +374,64 @@ function PairingContainer(props) {
   return (
     <div className="pairingContainer">
       <div className="pairingContainer__buttons">
-        {props.clicks < 2 ? (
-          <button onClick={sortByScore}>sort by best match</button>
-        ) : (
-          <button onClick={sortByGroup}>Reset</button>
-        )}
-        {props.clicks < 2 ? (
-          <button onClick={sortByName}>sort by name</button>
-        ) : null}
+        <h2>Explore tastes and click to match ingredients</h2>
+        <div className="pairingContainer__options">
+          <FontAwesomeIcon
+            onClick={resetList}
+            className="pairingContainer__icon"
+            icon={faSyncAlt}
+          />
+          <select onChange={handleSortChange}>
+            <option value="group">Sort by group</option>
+            <option value="name">Sort by name</option>
+            <option value="match">Sort by match</option>
+          </select>
+        </div>
       </div>
-      <div className="matches">
-        {pairs.map((pair) => {
-          return (
-            <p
-              key={pair}
-              onClick={() => reducePairs(pair.group, pair.name)}
-              className="pairingContainer__pair"
-            >
-              <span>{pair.name}</span>...
-              <span>{pair.score}</span>
-            </p>
-          );
-        })}
+      <div key={"hello"} className="match__container">
+        <AnimatePresence>
+          {pairs.map((pair, index) => {
+            return (
+              <motion.div
+                variants={container}
+                initial="hidden"
+                animate="show"
+                whileHover={{
+                  scale: 1.05,
+                }}
+                exit={{
+                  opacity: 0,
+                  transform: 0,
+                  transition: { duration: 0.9, delayChildren: 1 },
+                }}
+                onClick={() => reducePairs(pair.group, pair.name)}
+                key={pair + index}
+                className="matches"
+              >
+                <motion.div
+                  key={pair + index * 45}
+                  variants={item}
+                  exit={{ opacity: 0 }}
+                  className="pairingContainer__pair"
+                >
+                  <p className="pairing_text">{pair.name}</p>
+                  <div className="pairing__bar_container">
+                    <div
+                      className="paring__bar"
+                      style={{
+                        backgroundColor: `${groupColors[pair.group]}`,
+                        height: "15px",
+                        width: `${pair.score + 10}%`,
+                      }}
+                    >
+                      {pair.score}
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
       </div>
     </div>
   );
