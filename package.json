@@ -10,7 +10,6 @@
     "framer": "^1.2.11",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-easy-flip": "^4.0.0-beta.2",
     "react-mobile-picker-scroll": "^0.2.14",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.2.0",
