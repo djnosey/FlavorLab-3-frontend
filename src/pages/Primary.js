@@ -4,7 +4,7 @@ import ScrollPicker from "../components/Picker/ScrollPicker";
 import IngredientInfo from "../components/IngredientInfo/IngredientInfo";
 import { withAuth } from "./../context/auth-context";
 import ingredientService from "./../lib/ingredients-service";
-import { motion } from "framer";
+import { motion } from "framer-motion";
 
 function Primary(props) {
   const [allIngredients, setAllIngredients] = useState([]);
@@ -33,8 +33,9 @@ function Primary(props) {
 
   return (
     <motion.div
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
       className="primary__container"
     >
       <div className="primary__left">
@@ -49,9 +50,14 @@ function Primary(props) {
           </Link>
         )}
       </div>
-      <div className="primary__right">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+        className="primary__right"
+      >
         <IngredientInfo ingredient={SingleIngredientObject} />
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

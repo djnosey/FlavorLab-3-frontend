@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
-import { motion } from "framer";
+import { motion } from "framer-motion";
 
 function Signup(props) {
   const [name, setName] = useState("");

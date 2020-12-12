@@ -11,33 +11,29 @@ import Navbar from "./components/NavBar/Navbar";
 import Primary from "./pages/Primary";
 import FlavourPairingPage from "./pages/FlavourPairingPage";
 import Results from "./pages/Results";
-import { AnimatePresence } from "framer";
+import { AnimatePresence } from "framer-motion";
 
 function App() {
   const location = useLocation();
   return (
     <div className="container">
       <Navbar />
-      <AnimatePresence>
-        <Switch location={location} key={location.key}>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/primary">
-            <Primary />
-          </Route>
+      <Switch location={location} key={location.pathname}>
+        <Route path="/primary">
+          <Primary />
+        </Route>
 
-          <AnonRoute exact path="/signup" component={Signup} />
-          <AnonRoute exact path="/login" component={Login} />
-          <PrivateRoute
-            exact
-            path="/pairing/:id"
-            component={FlavourPairingPage}
-          />
-          <PrivateRoute exact path="/results/" component={Results} />
-          <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
-        </Switch>
-      </AnimatePresence>
+        <AnonRoute exact path="/signup" component={Signup} />
+        <AnonRoute exact path="/login" component={Login} />
+        <PrivateRoute
+          exact
+          path="/pairing/:id"
+          component={FlavourPairingPage}
+        />
+        <PrivateRoute exact path="/results/" component={Results} />
+        <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
+        <Route exact path="/" component={Home} />
+      </Switch>
     </div>
   );
 }

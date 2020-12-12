@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import PairingContainer from "../components/PairingContainer/PairingContainer";
 import ChosenPairing from "../components/ChosenPairing/ChosenPairing";
 import ingredientService from "./../lib/ingredients-service";
-import { motion } from "framer";
+import { motion } from "framer-motion";
 function FlavourPairingPage(props) {
   const [allIngredients, setAllIngredients] = useState([]);
   const [ingredient, setIngredient] = useState({});

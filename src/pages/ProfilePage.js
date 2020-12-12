@@ -6,7 +6,7 @@ import ProfileRecipes from "../components/ProfileRecipes/ProfileRecipes";
 import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm";
 import userService from "./../lib/user-service";
 import favoriteService from "./../lib/favorite-service";
-import { motion } from "framer";
+import { motion } from "framer-motion";
 function ProfilePage(props) {
   const history = useHistory();
   const [userProfile, setUserProfile] = useState({

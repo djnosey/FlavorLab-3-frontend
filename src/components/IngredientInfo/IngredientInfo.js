@@ -16,11 +16,7 @@ function IngredientInfo(props) {
         <div className="ingredientInfo__subs">
           <h3 className="ingredientSubtitle">Common types and substitutes:</h3>
           {ingredient?.substitutes.map((item) => {
-            return (
-              <div>
-                <span key={item}>{item + ", "}</span>
-              </div>
-            );
+            return <span key={item}>{item + ", "}</span>;
           })}
         </div>
         <div className="ingredientinfo__details">

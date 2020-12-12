@@ -3,6 +3,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  width: fit-content;
 }
 
 .homeInfo__item {

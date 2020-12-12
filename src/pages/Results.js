@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
-import { motion } from "framer";
+import { motion } from "framer-motion";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);

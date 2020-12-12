@@ -4,7 +4,7 @@ import "./../components/NavBar/NavBar.css";
 import { withAuth } from "./../context/auth-context";
 import mollecules from "./../images/file (1).png";
 import { useHistory } from "react-router-dom";
-import { motion } from "framer";
+import { motion } from "framer-motion";
 
 function Home() {
   const history = useHistory();
@@ -13,15 +13,17 @@ function Home() {
     history.push("/primary");
   };
   return (
-    <motion.div
-      exit={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="home__container"
-    >
+    <motion.div className="home__container">
       <div className="home__image-container">
         <img className="home__image" src={mollecules} alt="logo" />
       </div>
-      <div className="home__text-container">
+      <motion.div
+        key={"home__text"}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="home__text-container"
+      >
         <div className="home__title">Flavor</div>
         <div className="home__title">Lab.</div>
         <div className="home__subtitle">
@@ -29,10 +31,17 @@ function Home() {
         </div>
         <HomeInfo />
         <div className="home__start-button"></div>
-        <button className="navbar__button" onClick={handleClick}>
-          create
-        </button>
-      </div>
+        <motion.button
+          whileHover={{
+            scale: 1.1,
+            boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+          }}
+          className="navbar__button"
+          onClick={handleClick}
+        >
+          Create
+        </motion.button>
+      </motion.div>
     </motion.div>
   );
 }
