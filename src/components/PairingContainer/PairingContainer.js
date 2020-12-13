@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./PairingContainer.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { groupColors } from "./../../HelperFunctions/colourGroups";
 import GroupFilter from "../GroupFilter/GroupFilter";
+import PairSorter from "../PairSorter/PairSorter";
 
 function PairingContainer(props) {
   const [ingredient, setIngredient] = useState({
@@ -37,39 +36,6 @@ function PairingContainer(props) {
     setPairsCopy(copyOfPairs);
     setPairs(copyOfPairs);
   }, [ingredient]);
-
-  const sortByScore = (e) => {
-    e.preventDefault();
-    let copyOfPairs = [...pairs];
-    copyOfPairs.sort((a, b) => b.score - a.score);
-    setPairs(copyOfPairs);
-  };
-
-  const sortByName = (e) => {
-    e.preventDefault();
-    let copyOfPairs = [...pairs];
-    copyOfPairs.sort((a, b) => a.name.localeCompare(b.name));
-    setPairs(copyOfPairs);
-  };
-
-  const sortByGroup = (e) => {
-    e.preventDefault();
-    let copyOfPairs = [...pairs];
-    copyOfPairs.sort((a, b) => a.group.localeCompare(b.group));
-    setPairs(copyOfPairs);
-  };
-
-  const handleSortChange = (e) => {
-    if (e.target.value === "group") {
-      sortByGroup(e);
-    }
-    if (e.target.value === "name") {
-      sortByName(e);
-    }
-    if (e.target.value === "match") {
-      sortByScore(e);
-    }
-  };
 
   const resetList = (e) => {
     e.preventDefault();
@@ -381,16 +347,11 @@ function PairingContainer(props) {
       <div className="pairingContainer__buttons">
         <h2>Explore tastes and click to match ingredients</h2>
         <div className="pairingContainer__options">
-          <FontAwesomeIcon
-            onClick={resetList}
-            className="pairingContainer__icon"
-            icon={faSyncAlt}
+          <PairSorter
+            setDisplay={setDisplay}
+            resetList={resetList}
+            pairs={pairs}
           />
-          <select onChange={handleSortChange}>
-            <option value="group">Sort by group</option>
-            <option value="name">Sort by name</option>
-            <option value="match">Sort by match</option>
-          </select>
         </div>
       </div>
       <div className="match__container">
