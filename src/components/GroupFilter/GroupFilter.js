@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 function GroupFilter(props) {
   const [pairs, setPairs] = useState([]);
-  const [pairsCopy, setPairsCopy] = useState([...props.pairsCopy]);
+  const [pairsCopy, setPairsCopy] = useState([]);
 
   useEffect(() => {
     setPairsCopy(props.pairsCopy);
@@ -18,8 +18,6 @@ function GroupFilter(props) {
 
   const handleGroupFilter = (e) => {
     const copyOfPairs = [...pairs];
-    console.log(e.target.value);
-    console.log(e.target.checked);
 
     if (e.target.value === "Savoury" && e.target.checked === false) {
       const filtered = copyOfPairs.filter((item) => item.group !== "Savoury");

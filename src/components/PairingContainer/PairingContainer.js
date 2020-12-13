@@ -367,7 +367,6 @@ function PairingContainer(props) {
                 }}
                 exit={{
                   opacity: 0,
-                  transform: 0,
                   transition: { duration: 0.9, delayChildren: 1 },
                 }}
                 onClick={() => reducePairs(pair.group, pair.name)}

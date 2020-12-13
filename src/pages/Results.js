@@ -2,29 +2,26 @@ import React, { useState, useEffect } from "react";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
-import { motion } from "framer-motion";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
   const [wine, setWine] = useState(null);
   const [combination, setCombination] = useState("");
-
+  const recipeSearch = props.location.search;
   const APIKEY = "&apiKey=9849677a7a764db688297b62861624a1";
 
   let slicedString = props.location.search.slice(13);
   let indexOfFirstComma = slicedString.indexOf(",");
   let slicedString2 = slicedString.slice(indexOfFirstComma + 2);
   let indexOfSecondComma = slicedString2.indexOf(",");
-  let secondIngredient = slicedString2.slice(0, indexOfSecondComma);
   let firstIngredient = slicedString.slice(0, indexOfFirstComma);
+  let secondIngredient = slicedString2.slice(0, indexOfSecondComma);
   let slicedString3 = slicedString2.slice(indexOfSecondComma + 2, -9);
   let thirdIngredient = slicedString3;
 
   useEffect(() => {
     setCombination(`${firstIngredient} ${secondIngredient} ${thirdIngredient}`);
   }, [firstIngredient, secondIngredient, thirdIngredient]);
-
-  const recipeSearch = props.location.search;
 
   useEffect(() => {
     recipeService.getrecipes(recipeSearch, APIKEY).then((response) => {
@@ -79,7 +76,11 @@ function Results(props) {
   };
 
   return (
-    <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+    <div>
+      <h1>
+        nice! {firstIngredient}, {secondIngredient} & {thirdIngredient + ""}
+        Sounds great! Heres some recipe inspiritaion!
+      </h1>
       {recipe.map((recipe) => {
         return (
           <div key={recipe.id}>
@@ -105,7 +106,7 @@ function Results(props) {
       ) : (
         wine.pairingText
       )}
-    </motion.div>
+    </div>
   );
 }
 

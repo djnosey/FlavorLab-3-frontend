@@ -4,34 +4,36 @@ import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 function PairSorter(props) {
   const [pairs, setPairs] = useState([]);
+  const [newPairs, setNewPairs] = useState([]);
+  const { setDisplay } = props;
 
   useEffect(() => {
     setPairs(props.pairs);
   }, [props.pairs]);
 
   useEffect(() => {
-    props.setDisplay(pairs);
-  }, [pairs]);
+    setDisplay(newPairs);
+  }, [newPairs]);
 
   const sortByScore = (e) => {
     e.preventDefault();
     let copyOfPairs = [...pairs];
     copyOfPairs.sort((a, b) => b.score - a.score);
-    setPairs(copyOfPairs);
+    setNewPairs(copyOfPairs);
   };
 
   const sortByName = (e) => {
     e.preventDefault();
     let copyOfPairs = [...pairs];
     copyOfPairs.sort((a, b) => a.name.localeCompare(b.name));
-    setPairs(copyOfPairs);
+    setNewPairs(copyOfPairs);
   };
 
   const sortByGroup = (e) => {
     e.preventDefault();
     let copyOfPairs = [...pairs];
     copyOfPairs.sort((a, b) => a.group.localeCompare(b.group));
-    setPairs(copyOfPairs);
+    setNewPairs(copyOfPairs);
   };
 
   const handleSortChange = (e) => {

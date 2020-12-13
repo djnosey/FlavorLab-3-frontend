@@ -24,8 +24,6 @@ function Navbar(props) {
     history.push(`/profile/${props.user._id}`);
   };
 
-  console.log(location);
-
   return (
     <div className="navbar__container">
       {location.pathname !== "/" ? (
