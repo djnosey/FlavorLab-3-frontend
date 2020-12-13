@@ -23,6 +23,7 @@ const matchingGroups = {
     "Petrol",
   ],
   Tropical: ["Dairy", "Floral", "Fruit Like", "Wood", "Savoury", "Spice"],
+  Roasted: ["Fruit Like", "Marine", "Petrol", "Sulphur", "Tree Fruit"],
   Phenol: ["Chocolate", "Dried Fruit", "Smoke"],
   Pungent: ["Foral", "Sour"],
   Caramel: ["Alcohol", "Fruit Like", "Savoury", "Spice", "Nutty"],

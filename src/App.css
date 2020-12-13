@@ -224,4 +224,8 @@ body {
 
 /*RESULTS PAGE BASIC CSS*/
 
-
+.results__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

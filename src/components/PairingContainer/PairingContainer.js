@@ -7,11 +7,12 @@ import PairSorter from "../PairSorter/PairSorter";
 import matchingGroups from "./../../HelperFunctions/matchingGroups";
 
 function PairingContainer(props) {
-  const [ingredient, setIngredient] = useState({
+  const [Singleingredient, setSingleIngredient] = useState({
     allPairs: [{ name: "", group: "", score: 0 }],
   });
   const [pairs, setPairs] = useState([]);
   const [pairsCopy, setPairsCopy] = useState([]);
+  const { ingredient, setSecond, setThird, incClicks, clicks } = props;
 
   const container = {
     hidden: { opacity: 0 },
@@ -29,21 +30,23 @@ function PairingContainer(props) {
   };
 
   useEffect(() => {
-    props.ingredient[0] && setIngredient(props.ingredient[0]);
-  }, [props.ingredient]);
+    ingredient[0] && setSingleIngredient(ingredient[0]);
+  }, [ingredient]);
 
   useEffect(() => {
-    const copyOfPairs = ingredient.allPairs.filter((item) => item.score !== 0);
+    const copyOfPairs = Singleingredient.allPairs.filter(
+      (item) => item.score !== 0
+    );
     setPairsCopy(copyOfPairs);
     setPairs(copyOfPairs);
-  }, [ingredient]);
+  }, [Singleingredient]);
 
   const resetList = (e) => {
     e.preventDefault();
     setPairs(pairsCopy);
-    props.setSecond("");
-    props.setThird("");
-    props.incClicks(0);
+    setSecond("");
+    setThird("");
+    incClicks(0);
   };
 
   const setDisplay = (filteredPairs) => {
@@ -53,11 +56,9 @@ function PairingContainer(props) {
   const reducePairs = (group, name) => {
     const copyOfPairs = [...pairs];
     const filtered = [];
-
-    if (props.clicks === 0) {
-      props.incClicks(1);
-      props.setSecond(name);
-
+    if (clicks === 0) {
+      incClicks(1);
+      setSecond(name);
       const matches = matchingGroups[group];
       copyOfPairs.forEach((pairObj) => {
         matches.forEach((matchStr) => {
@@ -68,10 +69,9 @@ function PairingContainer(props) {
       });
       setPairs(filtered);
     }
-
-    if (props.clicks === 1) {
-      props.setThird(name);
-      props.incClicks(2);
+    if (clicks === 1) {
+      setThird(name);
+      incClicks(2);
     }
   };
 
@@ -100,7 +100,7 @@ function PairingContainer(props) {
                 }}
                 exit={{
                   opacity: 0,
-                  transition: { duration: 0.9, delayChildren: 1 },
+                  transition: { duration: 0.5, delayChildren: 0.8 },
                 }}
                 onClick={() => {
                   reducePairs(pair.group, pair.name);
