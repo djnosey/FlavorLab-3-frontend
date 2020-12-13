@@ -192,7 +192,7 @@ function GroupFilter(props) {
       copyOfPairs.push(...filtered);
       setPairs(copyOfPairs);
     }
-  }; //function close
+  };
   return (
     <div>
       <form onChange={handleGroupFilter}>

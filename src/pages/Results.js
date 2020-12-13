@@ -29,10 +29,6 @@ function Results(props) {
     });
   }, [recipeSearch]);
 
-  console.log(recipeSearch);
-  console.log(recipe);
-  console.log(wine);
-
   useEffect(() => {
     recipeService
       .getWine(firstIngredient, APIKEY)
@@ -112,7 +108,7 @@ function Results(props) {
           ? null
           : wine.pairedWines.map((wine) => {
               return (
-                <div>
+                <div key={wine}>
                   <p>{wine}</p>;
                 </div>
               );
