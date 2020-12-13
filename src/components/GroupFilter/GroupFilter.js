@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./GroupFilter.css";
 
 function GroupFilter(props) {
   const [pairs, setPairs] = useState([]);
@@ -201,6 +202,7 @@ function GroupFilter(props) {
           defaultChecked={true}
           value="Vegetal"
           name="Vegetal"
+          id="hello"
         />
         <label>Alcohol</label>
         <input
