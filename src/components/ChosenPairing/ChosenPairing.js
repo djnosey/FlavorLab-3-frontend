@@ -6,6 +6,16 @@ function ChosenPairing(props) {
   const history = useHistory();
   const [ingredient, setIngredient] = useState({ name: "", image: "" });
   const [currentId, setCurrentId] = useState("");
+  const {
+    idList,
+    chooseNew,
+    setSecond,
+    setThird,
+    incClicks,
+    secondIngredient,
+    thirdIngredient,
+    clicks,
+  } = props;
 
   useEffect(() => {
     props.ingredient[0] && setIngredient(props.ingredient[0]);
@@ -16,35 +26,35 @@ function ChosenPairing(props) {
   }, [ingredient]);
 
   const nextIngredient = () => {
-    let copyOfIds = [...props.idList];
+    let copyOfIds = [...idList];
     let currentIndex = copyOfIds.indexOf(currentId);
     if (currentIndex < copyOfIds.length - 1) {
       currentIndex++;
-      props.chooseNew(copyOfIds[currentIndex]);
+      chooseNew(copyOfIds[currentIndex]);
     } else {
-      props.chooseNew(copyOfIds[0]);
+      chooseNew(copyOfIds[0]);
     }
-    props.setSecond("");
-    props.setThird("");
-    props.incClicks(0);
+    setSecond("");
+    setThird("");
+    incClicks(0);
   };
 
   const prevIngredient = () => {
-    let copyOfIds = [...props.idList];
+    let copyOfIds = [...idList];
     let currentIndex = copyOfIds.indexOf(currentId);
     if (currentIndex > 0) {
       currentIndex--;
-      props.chooseNew(copyOfIds[currentIndex]);
+      chooseNew(copyOfIds[currentIndex]);
     } else {
-      props.chooseNew(copyOfIds[copyOfIds.length - 1]);
+      chooseNew(copyOfIds[copyOfIds.length - 1]);
     }
-    props.setSecond("");
-    props.setThird("");
-    props.incClicks(0);
+    setSecond("");
+    setThird("");
+    incClicks(0);
   };
 
   const handleRecipeClick = () => {
-    let string = `?ingredients=${ingredient.name},+${props.secondIngredient},+${props.thirdIngredient}&number=5`;
+    let string = `?ingredients=${ingredient.name},+${secondIngredient},+${props.thirdIngredient}&number=5`;
     history.push(`/results/${string}`);
   };
 
@@ -59,19 +69,19 @@ function ChosenPairing(props) {
         <button onClick={nextIngredient}>{`>>`}</button>
       </div>
 
-      {props.secondIngredient ? (
+      {secondIngredient ? (
         <h3>
           + <br></br>
-          {props.secondIngredient}
+          {secondIngredient}
         </h3>
       ) : null}
-      {props.thirdIngredient ? (
+      {thirdIngredient ? (
         <h3>
           + <br></br>
-          {props.thirdIngredient}
+          {thirdIngredient}
         </h3>
       ) : null}
-      {props.clicks === 2 ? (
+      {clicks === 2 ? (
         <div>
           <button className="navbar__button" onClick={handleRecipeClick}>
             get me a recipe!

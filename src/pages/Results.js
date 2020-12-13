@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import RecipeResults from "../components/RecipeResults/RecipeResults";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
@@ -10,7 +11,7 @@ function Results(props) {
   const recipeSearch = props.location.search;
   const APIKEY = "&apiKey=9849677a7a764db688297b62861624a1";
 
-  let slicedString = props.location.search.slice(13);
+  let slicedString = recipeSearch.slice(13);
   let indexOfFirstComma = slicedString.indexOf(",");
   let slicedString2 = slicedString.slice(indexOfFirstComma + 2);
   let indexOfSecondComma = slicedString2.indexOf(",");
@@ -55,7 +56,7 @@ function Results(props) {
       });
   }, [recipeSearch, firstIngredient, secondIngredient, thirdIngredient]);
 
-  const handleClick = (e, id) => {
+  const handleSave = (e, id) => {
     e.preventDefault();
     const singleRecipe = recipe.find((recipe) => recipe.id === id);
     let recep = singleRecipe.title;
@@ -76,25 +77,20 @@ function Results(props) {
   };
 
   return (
-    <div>
+    <div className="results__container">
       <h1>
         nice! {firstIngredient}, {secondIngredient} & {thirdIngredient + ""}
-        Sounds great! Heres some recipe inspiritaion!
+        Sounds great! Heres some recipe and wine inspiritaion!
       </h1>
       {recipe.map((recipe) => {
         return (
           <div key={recipe.id}>
-            <div>
-              <h1>{recipe.title}</h1>
-            </div>
-            <div>
-              <img src={recipe.image} alt={recipe.title} />
-            </div>
-            <form>
-              <button onClick={(e) => handleClick(e, recipe.id)} type="submit">
-                save to profile
-              </button>
-            </form>
+            <RecipeResults
+              title={recipe.title}
+              image={recipe.image}
+              id={recipe.id}
+              save={handleSave}
+            />
           </div>
         );
       })}
