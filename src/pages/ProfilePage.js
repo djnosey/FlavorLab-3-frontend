@@ -7,6 +7,8 @@ import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm
 import userService from "./../lib/user-service";
 import favoriteService from "./../lib/favorite-service";
 import { motion } from "framer-motion";
+import mollecules from "./../images/file (1).png";
+
 function ProfilePage(props) {
   const history = useHistory();
   const [userProfile, setUserProfile] = useState({
@@ -14,6 +16,7 @@ function ProfilePage(props) {
     email: "",
     name: "",
   });
+  const [showForm, setShowForm] = useState(false);
 
   const { id } = props.match.params;
 
@@ -54,39 +57,60 @@ function ProfilePage(props) {
       .then(() => {
         userService.getUser(id).then((user) => {
           setUserProfile(user);
+          setShowForm(false);
         });
       })
       .catch((err) => console.log(err));
   };
 
+  const toggleForm = () => {
+    setShowForm(!showForm);
+  };
+
   return (
-    <motion.div animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <ProfileDetails
-        name={userProfile.name}
-        email={userProfile.email}
-        deleteProfile={deleteProfile}
-      />
-
-      <UpdateProfileForm
-        name={userProfile.name}
-        email={userProfile.email}
-        update={handleUpdate}
-      />
-
-      <div>
-        {userProfile.favorites.map((item) => {
-          return (
-            <ProfileRecipes
-              recipe={item.recipe}
-              combination={item.combination}
-              image={item.image}
-              deleteRecipe={deleteRecipeFromProfile}
-              id={item._id}
-            />
-          );
-        })}
+    <div className="ProfilePage__container">
+      <div className="profile__image-container">
+        <img className="home__image" src={mollecules} alt="logo" />
       </div>
-    </motion.div>
+
+      {!showForm ? (
+        <div className="profilePage__info">
+          <ProfileDetails
+            name={userProfile.name}
+            email={userProfile.email}
+            deleteProfile={deleteProfile}
+            editProfile={toggleForm}
+          />
+        </div>
+      ) : null}
+
+      <motion.div className="profilePage__edit">
+        {showForm ? (
+          <UpdateProfileForm
+            name={userProfile.name}
+            email={userProfile.email}
+            update={handleUpdate}
+            toggle={toggleForm}
+          />
+        ) : null}
+      </motion.div>
+
+      {!showForm ? (
+        <div className="ProfilePage__recipies">
+          {userProfile.favorites.map((item) => {
+            return (
+              <ProfileRecipes
+                recipe={item.recipe}
+                combination={item.combination}
+                image={item.image}
+                deleteRecipe={deleteRecipeFromProfile}
+                id={item._id}
+              />
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }
 

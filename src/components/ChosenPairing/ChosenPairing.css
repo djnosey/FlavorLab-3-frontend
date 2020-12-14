@@ -27,8 +27,8 @@
 }
 
 .chosen__imageAndTitle img {
-  width: 250px;
-  height: 250px;
+  width: 230px;
+  height: 230px;
   object-fit: contain;
   margin: 25px 15px;
 }

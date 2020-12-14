@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "./ChosenPairing.css";
+import { motion } from "framer-motion";
 
 function ChosenPairing(props) {
   const history = useHistory();
@@ -54,12 +55,17 @@ function ChosenPairing(props) {
   };
 
   const handleRecipeClick = () => {
-    let string = `?ingredients=${ingredient.name},+${secondIngredient},+${props.thirdIngredient}&number=5`;
+    let string = `?ingredients=${ingredient.name},+${secondIngredient},+${props.thirdIngredient}&number=3`;
     history.push(`/results/${string}`);
   };
 
   return (
-    <div className="chosen__container">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 1.5 }}
+      className="chosen__container"
+    >
       <div className="chosen__header">
         <button onClick={prevIngredient}>{`<<`}</button>
         <div className="chosen__imageAndTitle">
@@ -83,12 +89,19 @@ function ChosenPairing(props) {
       ) : null}
       {clicks === 2 ? (
         <div>
-          <button className="navbar__button" onClick={handleRecipeClick}>
+          <motion.button
+            whileHover={{
+              scale: 1.1,
+              boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+            }}
+            className="navbar__button"
+            onClick={handleRecipeClick}
+          >
             get me a recipe!
-          </button>
+          </motion.button>
         </div>
       ) : null}
-    </div>
+    </motion.div>
   );
 }
 

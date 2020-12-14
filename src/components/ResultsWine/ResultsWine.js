@@ -5,14 +5,14 @@ function ResultsWine(props) {
   const { wine } = props;
   return (
     <div className="resultsWine__container">
-      <h2>Wine Pairings and notes</h2>
+      <h2>Wine Pairings and notes:</h2>
       <div>
         {!wine.pairedWines || wine.pairedWines.length === 0
           ? null
           : wine.pairedWines.map((wine) => {
               return (
                 <div key={wine}>
-                  <h3>{"- " + wine}</h3>;
+                  <h3>{"- " + wine}</h3>
                 </div>
               );
             })}

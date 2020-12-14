@@ -18,7 +18,6 @@ function Home() {
         <img className="home__image" src={mollecules} alt="logo" />
       </div>
       <motion.div
-        key={"home__text"}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}

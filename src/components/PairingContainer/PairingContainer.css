@@ -1,6 +1,6 @@
 .matches {
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 28px;
   flex-wrap: wrap;
   flex-direction: column;
   padding: 4px;
@@ -8,6 +8,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: clip;
+  margin-top: 2px;
 }
 
 .match__container {
@@ -25,8 +26,7 @@
 }
 
 .pairing_text {
-  font-size: large;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .pairingContainer__buttons {

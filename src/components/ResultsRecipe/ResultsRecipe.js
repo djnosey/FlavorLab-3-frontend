@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./ResultsRecipe.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 function ResultsRecipe(props) {
+  const [recipeList, setRecipeList] = useState([]);
   const { recipe, save } = props;
+  console.log(recipe);
+  useEffect(() => {
+    setRecipeList(recipe);
+  }, [recipe]);
   return (
     <div className="resultsRecipe__container">
-      {recipe?.map((recipe) => {
+      {recipeList?.map((recipe) => {
         return (
-          <div className="resultsRecipe__single" key={recipe.id}>
+          <motion.div className="resultsRecipe__single" key={recipe.id}>
             <div className="resultsRecipe__image">
               <img src={recipe.image} alt={recipe.title} />
             </div>
@@ -15,15 +21,19 @@ function ResultsRecipe(props) {
               <h3>{recipe.title}</h3>
             </div>
             <form>
-              <button
+              <motion.button
+                whileHover={{
+                  scale: 1.067,
+                  boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+                }}
                 className="navbar__button"
                 onClick={(e) => save(e, recipe.id)}
                 type="submit"
               >
-                save to profile
-              </button>
+                Save to profile
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         );
       })}
     </div>

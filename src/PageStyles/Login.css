@@ -1,18 +1,18 @@
 .login__input {
   border: none;
-  border-bottom: 1px solid deeppink;
+  border-bottom: 1px solid rgb(218, 0, 116);
   background-color: black;
   outline: none;
   width: 500px;
-  height: 35px;
-  font-size: 30px;
+  height: 30px;
+  font-size: 25px;
   margin: 20px;
   margin-bottom: 40px;
-  color: deeppink;
+  color: rgb(218, 0, 116);
 }
 
 .login__input::placeholder {
-  color: deeppink;
+  color: rgb(218, 0, 116);
   font-weight: 100;
 }
 
@@ -21,7 +21,7 @@
   flex-direction: column;
   margin-top: 150px;
   margin-left: 100px;
-  color: deeppink;
+  color: rgb(218, 0, 116);
 }
 
 .login__button {

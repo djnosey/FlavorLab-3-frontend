@@ -1,0 +1,23 @@
+.profileDetails__container {
+  width: 400px;
+}
+.profileDetails__name {
+  font-size: 50px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.profileDetails__email {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.profileDetails__info {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 100px;
+}
+
+#profileDetails__button {
+  margin-left: 0;
+  margin-right: 20px;
+}

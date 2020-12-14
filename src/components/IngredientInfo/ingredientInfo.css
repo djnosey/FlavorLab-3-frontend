@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 40px;
   border-radius: 10px;
+  margin-left: 30px;
 }
 
 .ingredientInfo__top {
@@ -19,12 +20,12 @@
 #ingredientHeader {
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 70px;
+  font-size: 60px;
   font-weight: 700;
 }
 
 .ingredientSubtitle {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 600;
   margin-bottom: 10px;
 }
@@ -34,14 +35,14 @@
 }
 
 #ingredientImage {
-  width: 400px;
-  height: 400px;
+  width: 350px;
+  height: 350px;
   object-fit: contain;
   margin-right: 80px;
 }
 
 .ingredientParagraph {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 500;
 }
 .ingredientInfo__best {

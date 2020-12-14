@@ -4,6 +4,7 @@ import ResultsWine from "../components/ResultsWine/ResultsWine";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
@@ -67,7 +68,7 @@ function Results(props) {
     let combo = combination;
     const copyOfRecipe = [...recipe];
     const recipeIndex = copyOfRecipe.findIndex((recipe) => recipe.id === id);
-    copyOfRecipe.splice(recipeIndex, 1, { title: "Saved", image: img });
+    copyOfRecipe.splice(recipeIndex, 1, { title: "Saved!", image: img });
     setRecipe(copyOfRecipe);
     saveRecipe(combo, recep, img, id);
   };
@@ -95,9 +96,20 @@ function Results(props) {
         Sounds great! Heres some recipe and wine inspiritaion!
       </h1>
       <div className="results">
-        <ResultsRecipe recipe={recipe} save={handleClick} />
-
-        <ResultsWine wine={wine} />
+        <motion.div
+          initial={{ opacity: 0, x: "-250vw" }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.5, type: "Inertia" }}
+        >
+          <ResultsRecipe recipe={recipe} save={handleClick} />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 1.2 }}
+        >
+          <ResultsWine wine={wine} />
+        </motion.div>
       </div>
     </div>
   );

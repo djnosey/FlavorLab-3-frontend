@@ -3,27 +3,32 @@ import { useLocation } from "react-router-dom";
 import {
   FacebookShareButton,
   FacebookIcon,
-  WhatsappShareButton,
-  WhatsappIcon,
+  TwitterShareButton,
+  TwitterIcon,
 } from "react-share";
+import "./ProfileRecipes.css";
 
 function ProfileRecipes(props) {
+  const { recipe, combination, image, id } = props;
   const location = useLocation();
   const url = location.pathname;
   console.log(location);
   return (
-    <div>
-      <div>
-        <h1>{props.combination}</h1>
-        <h1>{props.recipe}</h1>
-        <img src={props.image} alt={props.recipe} />
-        <FacebookShareButton title="Hello" url={url}>
-          <FacebookIcon></FacebookIcon>
-        </FacebookShareButton>
-        <button onClick={() => props.deleteRecipe(props.id)}>
-          delete recipe
-        </button>
+    <div className="resultsRecipe__single">
+      <div className="resultsRecipe__image">
+        <img src={image} alt={recipe} />
       </div>
+      <h1>{combination}</h1>
+      <h1>{recipe}</h1>
+      <TwitterShareButton url={url}>
+        <TwitterIcon size={30} round></TwitterIcon>
+      </TwitterShareButton>
+      <FacebookShareButton title="Hello" url={url}>
+        <FacebookIcon size={30} round></FacebookIcon>
+      </FacebookShareButton>
+      <button className="navbar__button" onClick={() => props.deleteRecipe(id)}>
+        delete recipe
+      </button>
     </div>
   );
 }
