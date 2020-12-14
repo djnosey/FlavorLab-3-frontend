@@ -6,7 +6,15 @@ class ScrollPicker extends Component {
     super(props);
     this.state = {
       valueGroups: {
-        title: "Alliums",
+        title: [
+          "Alliums",
+          "Asparagus",
+          "Artichoke",
+          "Avocado",
+          "Beef",
+          "Beetroot",
+          "Berry",
+        ],
       },
       optionGroups: {
         title: [
@@ -71,7 +79,6 @@ class ScrollPicker extends Component {
     };
   }
 
-  // Update the value in response to user picking event
   handleChange = (name, value) => {
     this.setState(({ valueGroups }) => ({
       valueGroups: {
