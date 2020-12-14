@@ -1,0 +1,31 @@
+.resultsRecipe__container {
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+}
+.resultsRecipe__container h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 20px;
+}
+
+.resultsRecipe__single {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 110px;
+  margin: 0 30px 30px 30px;
+  border: 1px solid black;
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 500px;
+}
+
+.resultsRecipe__image img {
+  height: 100px;
+  border-radius: 25px;
+}
+
+.resultsRecipe__image {
+  margin-right: 20px;
+}

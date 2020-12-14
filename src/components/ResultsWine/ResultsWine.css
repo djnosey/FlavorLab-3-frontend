@@ -1,0 +1,20 @@
+.resultsWine__container {
+  width: 400px;
+}
+
+.resultsWine__container h3 {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.resultsWine__container h2 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.resultsWine__container p {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 30px;
+}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import ResultsRecipe from "../components/ResultsRecipe/ResultsRecipe";
+import ResultsWine from "../components/ResultsWine/ResultsWine";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
@@ -19,7 +21,9 @@ function Results(props) {
   let thirdIngredient = slicedString3;
 
   useEffect(() => {
-    setCombination(`${firstIngredient} ${secondIngredient} ${thirdIngredient}`);
+    let comboSTR = `${firstIngredient} ${secondIngredient} ${thirdIngredient}`;
+    let comboArr = comboSTR.split("%20").join("");
+    setCombination(comboArr);
   }, [firstIngredient, secondIngredient, thirdIngredient]);
 
   const recipeSearch = props.location.search;
@@ -65,59 +69,35 @@ function Results(props) {
     const recipeIndex = copyOfRecipe.findIndex((recipe) => recipe.id === id);
     copyOfRecipe.splice(recipeIndex, 1, { title: "Saved", image: img });
     setRecipe(copyOfRecipe);
-    saveRecipe(combo, recep, img);
+    saveRecipe(combo, recep, img, id);
   };
 
-  const saveRecipe = (combo, recep, img) => {
+  const saveRecipe = (combo, recep, img, id) => {
     favoriteService
       .addFavorite(combo, recep, img)
-      .then(() => {})
+      .then(() => {
+        setTimeout(() => {
+          const copyOfRecipe = [...recipe];
+          const recipeIndex = copyOfRecipe.findIndex(
+            (recipe) => recipe.id === id
+          );
+          copyOfRecipe.splice(recipeIndex, 1);
+          setRecipe(copyOfRecipe);
+        }, 1000);
+      })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="results__container">
       <h1>
-        nice! {firstIngredient}, {secondIngredient} & {thirdIngredient + " "}
+        Nice! {combination + " "}
         Sounds great! Heres some recipe and wine inspiritaion!
       </h1>
-      <div>
-        {recipe?.map((recipe) => {
-          return (
-            <div key={recipe.id}>
-              <div>
-                <h1>{recipe.title}</h1>
-              </div>
-              <div>
-                <img src={recipe.image} alt={recipe.title} />
-              </div>
-              <form>
-                <button
-                  onClick={(e) => handleClick(e, recipe.id)}
-                  type="submit"
-                >
-                  save to profile
-                </button>
-              </form>
-            </div>
-          );
-        })}
-      </div>
-      <div>
-        {!wine.pairedWines || wine.pairedWines.length === 0
-          ? null
-          : wine.pairedWines.map((wine) => {
-              return (
-                <div key={wine}>
-                  <p>{wine}</p>;
-                </div>
-              );
-            })}
-      </div>
-      <div>
-        {!wine.pairedWines || wine.pairedWines.length === 0
-          ? null
-          : wine.pairingText}
+      <div className="results">
+        <ResultsRecipe recipe={recipe} save={handleClick} />
+
+        <ResultsWine wine={wine} />
       </div>
     </div>
   );
