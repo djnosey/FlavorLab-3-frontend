@@ -18,8 +18,6 @@ function Primary(props) {
     });
   }, []);
 
-  const namesArray = allIngredients.map((item) => item.name);
-
   useEffect(() => {
     const foundIngredient = allIngredients.filter(
       (item) => item.name === selectedIngredient
@@ -39,7 +37,7 @@ function Primary(props) {
       className="primary__container"
     >
       <div className="primary__left">
-        <ScrollPicker names={namesArray} findIngredient={findIngredient} />
+        <ScrollPicker findIngredient={findIngredient} />
         {props.isLoggedIn ? (
           <Link to={`/pairing/${SingleIngredientObject[0]?._id}`}>
             <motion.button
