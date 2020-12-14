@@ -76,10 +76,14 @@ function Login(props) {
 
       <div>
         {error.includes("401") ? (
-          <p>Seems like you typed the wrong password!</p>
+          <p style={{ color: "white" }}>
+            Seems like you typed the wrong password!
+          </p>
         ) : null}
         {error.includes("404") ? (
-          <p>looks like that email doesn't have an account!</p>
+          <p style={{ color: "white" }}>
+            looks like that email doesn't have an account!
+          </p>
         ) : null}
       </div>
     </div>
