@@ -42,11 +42,27 @@ function Primary(props) {
         <ScrollPicker names={namesArray} findIngredient={findIngredient} />
         {props.isLoggedIn ? (
           <Link to={`/pairing/${SingleIngredientObject[0]?._id}`}>
-            <button className="navbar__button">start pairing logged in</button>
+            <motion.button
+              whileHover={{
+                scale: 1.1,
+                boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+              }}
+              className="navbar__button"
+            >
+              Start pairing
+            </motion.button>
           </Link>
         ) : (
           <Link to="/login">
-            <button className="navbar__button">start pairing logged out</button>
+            <motion.button
+              whileHover={{
+                scale: 1.1,
+                boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+              }}
+              className="navbar__button"
+            >
+              Log in
+            </motion.button>
           </Link>
         )}
       </div>

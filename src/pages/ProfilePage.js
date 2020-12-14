@@ -51,8 +51,10 @@ function ProfilePage(props) {
     e.preventDefault();
     userService
       .updateUser(id, name, email)
-      .then((user) => {
-        setUserProfile(user);
+      .then(() => {
+        userService.getUser(id).then((user) => {
+          setUserProfile(user);
+        });
       })
       .catch((err) => console.log(err));
   };
