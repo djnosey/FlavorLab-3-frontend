@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { withAuth } from "./../context/auth-context";
 import { motion, AnimatePresence } from "framer-motion";
 import mollecules from "./../images/file (1).png";
@@ -68,7 +69,10 @@ function Login(props) {
               transition={{ delay: 2, duration: 1 }}
               className="login__p"
             >
-              Don't have an account yet? Sign up here
+              Don't have an account yet?{" "}
+              <Link style={{ color: "yellow" }} to="/signup">
+                Sign up here
+              </Link>
             </motion.p>
           </motion.form>
         </div>

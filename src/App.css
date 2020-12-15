@@ -138,6 +138,9 @@ body {
   height: 100vh;
   position: relative;
 }
+.loginLink {
+  text-decoration: none;
+}
 
 /*HOME PAGE BASIC CSS*/
 .home__container {
@@ -177,14 +180,14 @@ body {
 
 .home__title {
   color: white;
-  font-size: 130px;
+  font-size: 110px;
   margin-bottom: 30px;
   font-weight: 600;
   width: fit-content;
 }
 .home__subtitle {
   color: yellow;
-  font-size: 30px;
+  font-size: 25px;
   font-style: italic;
   margin-bottom: 50px;
 }
@@ -221,7 +224,7 @@ body {
   width: 95%;
 }
 .flavour-pairing-page__leftside {
-  width: 1300px;
+  width: 1200px;
 }
 
 /*LOGIN PAGE BASIC CSS*/

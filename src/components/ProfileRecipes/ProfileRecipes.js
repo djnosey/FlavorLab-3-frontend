@@ -12,7 +12,7 @@ import "./../ResultsRecipe/ResultsRecipe.css";
 import { motion } from "framer-motion";
 
 function ProfileRecipes(props) {
-  const { recipe, combination, image, id } = props;
+  const { recipe, combination, image, id, deleteRecipe } = props;
 
   const sharingURL = "https://flavorlab.herokuapp.com/";
   const combinationStr = combination.split(" ").join(",");
@@ -50,7 +50,7 @@ function ProfileRecipes(props) {
           boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
         }}
         className="navbar__button"
-        onClick={() => props.deleteRecipe(id)}
+        onClick={() => deleteRecipe(id)}
       >
         delete recipe
       </motion.button>

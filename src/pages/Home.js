@@ -26,7 +26,10 @@ function Home() {
         <div className="home__title">Flavor</div>
         <div className="home__title">Lab.</div>
         <div className="home__subtitle">
-          <i>Pair common ingredients to create extraordinary dishes.</i>
+          <i>
+            Mollecular Matchmaking. Pair ingredients by aroma and taste to
+            create extraordinary menus
+          </i>
         </div>
         <HomeInfo />
         <div className="home__start-button"></div>
