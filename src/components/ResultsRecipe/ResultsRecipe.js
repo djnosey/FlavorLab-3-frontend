@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ResultsRecipe.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 function ResultsRecipe(props) {
   const [recipeList, setRecipeList] = useState([]);

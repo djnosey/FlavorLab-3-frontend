@@ -1,0 +1,15 @@
+.resultsRecipe__sharingButtons {
+  display: flex;
+  flex-direction: column;
+}
+
+#combo {
+  width: 40px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+#recipe {
+  width: 90px;
+  margin-left: 20px;
+}

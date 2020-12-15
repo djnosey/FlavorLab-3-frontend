@@ -4,7 +4,7 @@ import ResultsWine from "../components/ResultsWine/ResultsWine";
 import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);

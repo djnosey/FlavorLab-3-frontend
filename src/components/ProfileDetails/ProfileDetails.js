@@ -3,7 +3,7 @@ import "./ProfileDetails.css";
 import { motion } from "framer-motion";
 
 function ProfileDetails(props) {
-  const { name, email, deleteProfile, editProfile } = props;
+  const { name, email, deleteProfile, toggleForm } = props;
   return (
     <div className="profileDetails__container">
       <h1 className="profileDetails__name">Hey {name}!</h1>
@@ -29,7 +29,7 @@ function ProfileDetails(props) {
           boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
         }}
         className="navbar__button"
-        onClick={editProfile}
+        onClick={toggleForm}
       >
         Edit Profile
       </motion.button>

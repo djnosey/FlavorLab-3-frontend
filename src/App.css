@@ -272,4 +272,5 @@ body {
 .ProfilePage__recipies {
   margin-top: 50px;
   overflow: scroll;
+  width: 800px;
 }

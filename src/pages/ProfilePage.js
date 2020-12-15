@@ -6,7 +6,7 @@ import ProfileRecipes from "../components/ProfileRecipes/ProfileRecipes";
 import UpdateProfileForm from "../components/UpdateProfileForm/UpdateProfileForm";
 import userService from "./../lib/user-service";
 import favoriteService from "./../lib/favorite-service";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import mollecules from "./../images/file (1).png";
 
 function ProfilePage(props) {
@@ -69,47 +69,70 @@ function ProfilePage(props) {
 
   return (
     <div className="ProfilePage__container">
-      <div className="profile__image-container">
-        <img className="home__image" src={mollecules} alt="logo" />
-      </div>
-
-      {!showForm ? (
-        <div className="profilePage__info">
-          <ProfileDetails
-            name={userProfile.name}
-            email={userProfile.email}
-            deleteProfile={deleteProfile}
-            editProfile={toggleForm}
-          />
+      <AnimatePresence>
+        <div className="profile__image-container">
+          <img className="home__image" src={mollecules} alt="logo" />
         </div>
-      ) : null}
 
-      <motion.div className="profilePage__edit">
-        {showForm ? (
-          <UpdateProfileForm
-            name={userProfile.name}
-            email={userProfile.email}
-            update={handleUpdate}
-            toggle={toggleForm}
-          />
+        {!showForm ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 1.5 }}
+            exit={{ opacity: 0, transition: { delay: 0, duration: 0.5 } }}
+            key="details"
+            className="profilePage__info"
+          >
+            <ProfileDetails
+              name={userProfile.name}
+              email={userProfile.email}
+              deleteProfile={deleteProfile}
+              toggleForm={toggleForm}
+            />
+          </motion.div>
         ) : null}
-      </motion.div>
 
-      {!showForm ? (
-        <div className="ProfilePage__recipies">
-          {userProfile.favorites.map((item) => {
-            return (
-              <ProfileRecipes
-                recipe={item.recipe}
-                combination={item.combination}
-                image={item.image}
-                deleteRecipe={deleteRecipeFromProfile}
-                id={item._id}
-              />
-            );
-          })}
-        </div>
-      ) : null}
+        {showForm ? (
+          <motion.div
+            initial={{ y: "250vh" }}
+            animate={{ y: 0 }}
+            transition={{ delay: 0.7, duration: 1.5, type: "spring" }}
+            exit={{ y: "250vh", transition: { duration: 0.6, delay: 0 } }}
+            key="form"
+            className="profilePage__edit"
+          >
+            <UpdateProfileForm
+              name={userProfile.name}
+              email={userProfile.email}
+              update={handleUpdate}
+              toggle={toggleForm}
+            />
+          </motion.div>
+        ) : null}
+
+        {!showForm ? (
+          <motion.div
+            initial={{ x: "250vw" }}
+            animate={{ x: 0 }}
+            transition={{ delay: 0.6, duration: 1.5 }}
+            exit={{ x: "250vw", transition: { duration: 0.8 } }}
+            key="recipe_box"
+            className="ProfilePage__recipies"
+          >
+            {userProfile.favorites.map((item) => {
+              return (
+                <ProfileRecipes
+                  recipe={item.recipe}
+                  combination={item.combination}
+                  image={item.image}
+                  deleteRecipe={deleteRecipeFromProfile}
+                  id={item._id}
+                />
+              );
+            })}
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

@@ -2,15 +2,16 @@ import React, { useState, useEffect } from "react";
 import { withAuth } from "../../context/auth-context";
 import "./UpdateProfileForm.css";
 import "./../../PageStyles/Login.css";
+import { motion } from "framer-motion";
 
 function UpdateProfileForm(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  // useEffect(() => {
-  //   setName(props.name);
-  //   setEmail(props.email);
-  // }, [props.name, props.email]);
+  useEffect(() => {
+    setName(props.name);
+    setEmail(props.email);
+  }, [props.name, props.email]);
 
   return (
     <div className="UpdateProfileForm__container">
@@ -36,13 +37,27 @@ function UpdateProfileForm(props) {
           autoComplete="email"
           placeholder="Email"
         />
-        <button onClick={props.handleUpdate} className="navbar__button">
+        <motion.button
+          whileHover={{
+            scale: 1.1,
+            boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+          }}
+          onClick={props.handleUpdate}
+          className="navbar__button"
+        >
           Update
-        </button>
-        <button onClick={props.toggleForm} className="navbar__button">
-          Cancel
-        </button>
+        </motion.button>
       </form>
+      <motion.button
+        whileHover={{
+          scale: 1.1,
+          boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+        }}
+        onClick={props.toggle}
+        className="navbar__button"
+      >
+        Cancel
+      </motion.button>
     </div>
   );
 }
