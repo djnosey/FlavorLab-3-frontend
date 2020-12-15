@@ -55,7 +55,7 @@ function ChosenPairing(props) {
   };
 
   const handleRecipeClick = () => {
-    let string = `?ingredients=${ingredient.name},+${secondIngredient},+${props.thirdIngredient}&number=3`;
+    let string = `?ingredients=${ingredient.name},+${secondIngredient},+${thirdIngredient}&number=3`;
     history.push(`/results/${string}`);
   };
 

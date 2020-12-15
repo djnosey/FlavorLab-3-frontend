@@ -10,9 +10,7 @@ function IngredientInfo(props) {
   return (
     <div className="ingredientInfo">
       <div className="ingredientInfo__top">
-        <h1 data-flip-id="title" id="ingredientHeader">
-          {ingredient?.name}
-        </h1>
+        <h1 id="ingredientHeader">{ingredient?.name}</h1>
         <div className="ingredientInfo__subs">
           <h3 className="ingredientSubtitle">Common types and substitutes:</h3>
           {ingredient?.substitutes.map((item) => {
@@ -44,7 +42,6 @@ function IngredientInfo(props) {
                 return (
                   <li
                     key={item}
-                    data-flip-id="suprise"
                     className="ingredientParagraph"
                   >
                     {item}
@@ -54,9 +51,6 @@ function IngredientInfo(props) {
             </div>
           </div>
         </div>
-      </div>
-      <div className="ingredientInfo__bottom">
-        <p className="ingredientParagraph">{ingredient?.description}</p>
       </div>
     </div>
   );
