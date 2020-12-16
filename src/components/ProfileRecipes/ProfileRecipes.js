@@ -26,19 +26,19 @@ function ProfileRecipes(props) {
       <h1 id="recipe">{recipe}</h1>
       <div className="resultsRecipe__sharingButtons">
         <WhatsappShareButton
-          title={` check out this ${recipe} made by pairing ${combinationStr}.... created on FlavorLab.`}
+          title={`Check out this ${recipe} made by pairing ${combinationStr}.... created on FlavorLab.`}
           url={sharingURL}
         >
           <WhatsappIcon size={30} round></WhatsappIcon>
         </WhatsappShareButton>
         <TwitterShareButton
-          title={` check out this ${recipe} made by pairing ${combinationStr}.... created on FlavorLab.`}
+          title={`Check out this ${recipe} made by pairing ${combinationStr}.... created on FlavorLab.`}
           url={sharingURL}
         >
           <TwitterIcon size={30} round></TwitterIcon>
         </TwitterShareButton>
         <FacebookShareButton
-          quote={` check out this ${recipe} made by pairing ${combinationStr}.... created on FlavorLab.`}
+          quote={`Check out this ${recipe} made by pairing ${combinationStr}.... created on FlavorLab.`}
           url={sharingURL}
         >
           <FacebookIcon size={30} round></FacebookIcon>

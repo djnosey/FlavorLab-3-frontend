@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# FlavorLab
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### **MOLECULAR MATCHMAKING: TINDER FOR AROMAS**
 
-## Available Scripts
+Cucumber and salmon? Bacon and cheese? Melted butter on fresh asparagus? The fact that we like to eat certain foods together isn’t just a matter of culinary tradition, it’s actually based on chemistry—on the overlap between certain aroma molecules.
 
-In the project directory, you can run:
+As well as serving as an encyclopedia of ingredients FlavorLab uses a proprietory dataset and algorithm to match ingredients based on aroma and taste profiles.
 
-### `npm start`
+![WhatsApp Image 2020-12-07 at 01.17.53](/Users/stevenpayne/Desktop/WhatsApp Image 2020-12-07 at 01.17.53.jpeg)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### User Stories
 
-### `npm test`
+As an anonymous user I can browse the 50 primary ingredients, get information on them, see their "top" pairs as well as some surprising pairs.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+As a member of FlavorLab, I can have full access to all 223 ingredients, use the flavour matching algorithm again and again to create combinations (around 1.8 million) get recipe and wine pairing ideas based on my chosen combination, and save the ones I love to my profile page.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### React Router Routes
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+| Route    | Component          | Permission | Purpose                                             |
+| -------- | ------------------ | ---------- | --------------------------------------------------- |
+| /        | homePage           | Public     | display the homepage                                |
+| /signup  | SignupPage         | Anon       | display signup form                                 |
+| /login   | LoginPage          | Anon       | display login                                       |
+| /primary | Primary            | Public     | display ingredient encyclopedia page                |
+| /pairing | FlavourPairingPage | Private    | display flavour pairing page                        |
+| /result  | Results            | Private    | display results page based on your selected pairing |
+| /profile | ProfilePage        | Private    | display user profile with their saved combinations  |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+### Main Components
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- homePage
+- LoginPage
+- SignupPage
+- PrimaryPage
+- FlavourPairingPage
+- ResultsPage
+- ProfilePage
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Services
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+##### Auth service
 
-## Learn More
+auth.login(user)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+auth.signup(user)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+auth.logout()
 
-### Code Splitting
+auth.me()
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+##### Ingredients service
 
-### Analyzing the Bundle Size
+ingredients.getAll()
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+ingredients.getOne(id)
 
-### Making a Progressive Web App
+ingredients.getRecipe(combination)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+ingredients.getWine(combination)
 
-### Advanced Configuration
+##### User service
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+user.getProfile(id)
 
-### Deployment
+user.deleteProfile(id)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+user.editProfile(new user info, id)
 
-### `npm run build` fails to minify
+user.addFavorite(user ID)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+user.deleteFavorite(user id, favorite id)
+
+---
+
+### Database Models
+
+```javascript
+const userSchema = new Schema({
+  name: String,
+  email: String,
+  password: String,
+  favorites: [{ type: Schema.Types.ObjectId, ref: "Favorite" }],
+});
+```
+
+```javascript
+const favoriteSchema = new Schema({
+  combination: String,
+  recipe: String,
+  image: String,
+  user: [{ type: Schema.Types.ObjectId, ref: "User" }],
+});
+```
+
+```javascript
+const ingredientSchema = new Schema({
+  name: String,
+  group: String,
+  subGroup: String,
+  description: String,
+  image: String,
+  substitutes: [String],
+  bestPairs: [String],
+  suprisePairs: [String],
+  allPairs: [{ name: String, score: Number, group: String }],
+});
+```
+
+### API Routes
+
+Authorization
+
+| Verb | Route        | Body                    | Purpose                    | Success | Error |
+| ---- | ------------ | ----------------------- | -------------------------- | ------- | ----- |
+| POST | /auth/signup | {name, email, password} | Add new user to database   | 201     | 400   |
+| POST | /auth/login  | {email, password}       | Log into application       | 200     | 401   |
+| GET  | /auth/logout |                         | Destroy Session            | 200     | 400   |
+| GET  | /auth/me     |                         | Provide State for frontend | 200     | 400   |
+
+Ingredients
+
+| Verb | Route               | Body | Purpose                                                       | Success | Error |
+| ---- | ------------------- | ---- | ------------------------------------------------------------- | ------- | ----- |
+| GET  | api/ingredients     |      | display all the ingredients titles for lists and select menus | 200     | 500   |
+| GET  | api/ingredients/:id |      | display detailed information on single ingredient             | 200     | 404   |
+
+User
+
+| Verb   | Route        | Body          | Purpose                           | Success | Error   |
+| ------ | ------------ | ------------- | --------------------------------- | ------- | ------- |
+| GET    | api/user/:id | {id}          | display a user profile            | 200     | 401/404 |
+| PUT    | api/user/:id | {name, email} | Update a user profile information | 201     | 401     |
+| DELETE | api/user/:id | {id}          | Delete a user profile             | 204     | 401/500 |
+
+Favorite
+
+| Verb   | Route            | Body                             | Purpose                               | Success | Error   |
+| ------ | ---------------- | -------------------------------- | ------------------------------------- | ------- | ------- |
+| POST   | api/favorite     | {Combination, Recipe, image URL} | Save a user favorite to their profile | 201     | 500     |
+| DELETE | api/favorite/:id | {id}                             | Delete a favorite from your profile   | 204     | 401/500 |
+
+---
+
+### External API for recipe and wine pairing
+
+```
+https://api.spoonacular.com/recipes/
+```
+
+```
+https://api.spoonacular.com/food/wine/pairing
+```
+
+---
+
+### Links
+
+githublink
+
+[wireframe]: https://www.figma.com/file/Y49g1BNJuHyzCHbCZxemT1/Untitled?node-id=0%3A1 "wireFrame"
+
+Trellolink
+
+---
+
+### Backlog
+
+public page showing users created favorite combinations with function to "like"
+
+Images for the secondary ingredients
+
+push notification when someone likes your combination
+
+generate a new random recipe based on saved combination
+
+View that explains the science behind the pairing
+
+FAQ/general info view
+
+responsive
