@@ -59,7 +59,7 @@ function GroupFilter(props) {
                 value={group}
                 name={group}
               />
-              <label>{group}</label>
+              <label style={{ marginRight: "12px" }}>{group}</label>
             </span>
           );
         })}

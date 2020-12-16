@@ -1,17 +1,17 @@
 const sortGroup = {
-  Savoury: ["Savoury"],
-  Marine: ["Marine"],
   Vegetal: ["Earthy", "Fruit Like", "Green", "Herbacious"],
-  Sour: ["Sour"],
-  Floral: ["Floral"],
-  Pungent: ["Pungent"],
-  Phenol: ["Phenol"],
-  Dairy: ["Dairy"],
-  Sulphur: ["Sulphur"],
   Alcohol: ["Alcohol"],
+  Sulphur: ["Sulphur"],
+  Dairy: ["Dairy"],
+  Floral: ["Floral"],
   Fruity: ["Berry", "Citrus", "Melon", "Tree Fruit", "Tropical"],
+  Phenol: ["Phenol"],
+  Pungent: ["Pungent"],
   Malliard: ["Caramel", "Chocolate", "Meaty", "Nutty", "Roasted", "Toasted"],
   Terpene: ["Medicinal", "Smoke", "Wood", "Spice", "Petrol"],
+  Marine: ["Marine"],
+  Sour: ["Sour"],
+  Savoury: ["Savoury"],
 };
 
 export default sortGroup;

@@ -38,14 +38,30 @@ function Navbar(props) {
           >
             Sign out
           </motion.button>
-          <Link to={`/profile/${user._id}`}>
-            <motion.button
-              whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
-              className="navbar__button"
-            >
-              Profile
-            </motion.button>
-          </Link>
+
+          {location.pathname !== `/profile/${user._id}` ? (
+            <Link to={`/profile/${user._id}`}>
+              <motion.button
+                whileHover={{
+                  boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+                }}
+                className="navbar__button"
+              >
+                Profile
+              </motion.button>
+            </Link>
+          ) : (
+            <Link to={`/primary`}>
+              <motion.button
+                whileHover={{
+                  boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)",
+                }}
+                className="navbar__button"
+              >
+                New creation!
+              </motion.button>
+            </Link>
+          )}
         </div>
       ) : (
         <div className="navbar__username-container">
