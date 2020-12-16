@@ -9,15 +9,29 @@ function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    setError(props.loginError);
-  }, [props.loginError]);
+  const { login, loginError } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.login(email, password);
+    login(email, password);
+    setTimeout(cleanErrors, 5000);
   };
+
+  useEffect(() => {
+    setError(loginError);
+  }, [loginError]);
+
+  const cleanErrors = () => {
+    setError("");
+  };
+
+  const timer = setTimeout(cleanErrors, 5000);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [timer]);
 
   return (
     <div className="login-container">
@@ -74,22 +88,26 @@ function Login(props) {
                 Sign up here
               </Link>
             </motion.p>
+            <div>
+              {error.includes("401") ? (
+                <p className="login__p" style={{ color: "white" }}>
+                  Seems like you typed the wrong password!
+                </p>
+              ) : null}
+              {error.includes("404") ? (
+                <p className="login__p" style={{ color: "white" }}>
+                  looks like that email doesn't have an account!
+                </p>
+              ) : null}
+              {error.includes("400") ? (
+                <p className="login__p" style={{ color: "white" }}>
+                  Please make sure all fields are filled in correctly!
+                </p>
+              ) : null}
+            </div>
           </motion.form>
         </div>
       </AnimatePresence>
-
-      <div>
-        {error.includes("401") ? (
-          <p style={{ color: "white" }}>
-            Seems like you typed the wrong password!
-          </p>
-        ) : null}
-        {error.includes("404") ? (
-          <p style={{ color: "white" }}>
-            looks like that email doesn't have an account!
-          </p>
-        ) : null}
-      </div>
     </div>
   );
 }

@@ -52,7 +52,7 @@ function GroupFilter(props) {
       <form onChange={handleGroupFilterRefactored}>
         {groups.map((group) => {
           return (
-            <span>
+            <span key={group}>
               <input
                 type="checkbox"
                 defaultChecked={true}

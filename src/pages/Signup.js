@@ -11,14 +11,27 @@ function Signup(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.signup(name, email, password);
+    cleanErrors();
+  };
+
   useEffect(() => {
     setError(props.signUpError);
   }, [props.signUpError]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    props.signup(name, email, password);
+  const cleanErrors = () => {
+    setError("");
   };
+
+  const timer = setTimeout(cleanErrors, 5000);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [timer]);
 
   return (
     <div className="login-container">
@@ -80,16 +93,20 @@ function Signup(props) {
             Log in here
           </Link>
         </motion.p>
-      </motion.form>
-      <div>
-        {error.includes("401") ? (
-          <p>that email address is already in use!</p>
-        ) : null}
+        <div>
+          {error.includes("401") ? (
+            <p className="login__p" style={{ color: "white" }}>
+              that email address is already in use!
+            </p>
+          ) : null}
 
-        {error.includes("400") ? (
-          <p>I think you forgot to fill in the form!</p>
-        ) : null}
-      </div>
+          {error.includes("400") ? (
+            <p className="login__p" style={{ color: "white" }}>
+              I think you forgot to fill in the form!
+            </p>
+          ) : null}
+        </div>
+      </motion.form>
     </div>
   );
 }
