@@ -6,8 +6,6 @@ Cucumber and salmon? Bacon and cheese? Melted butter on fresh asparagus? The fac
 
 As well as serving as an encyclopedia of ingredients FlavorLab uses a proprietory dataset and algorithm to match ingredients based on aroma and taste profiles.
 
-![WhatsApp Image 2020-12-07 at 01.17.53](/Users/stevenpayne/Desktop/WhatsApp Image 2020-12-07 at 01.17.53.jpeg)
-
 ---
 
 ### User Stories

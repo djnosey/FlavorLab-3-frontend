@@ -5,29 +5,19 @@ import { withAuth } from "./../context/auth-context";
 import favoriteService from "./../lib/favorite-service";
 import recipeService from "./../lib/recipe-service";
 import { motion } from "framer-motion";
+import stringSplitter from "./../HelperFunctions/stringSplitter";
 
 function Results(props) {
   const [recipe, setRecipe] = useState([]);
   const [wine, setWine] = useState([]);
   const [combination, setCombination] = useState("");
   const APIKEY = "&apiKey=9849677a7a764db688297b62861624a1";
-
-  let slicedString = props.location.search.slice(13);
-  let indexOfFirstComma = slicedString.indexOf(",");
-  let slicedString2 = slicedString.slice(indexOfFirstComma + 2);
-  let indexOfSecondComma = slicedString2.indexOf(",");
-  let firstIngredient = slicedString.slice(0, indexOfFirstComma);
-  let secondIngredient = slicedString2.slice(0, indexOfSecondComma);
-  let slicedString3 = slicedString2.slice(indexOfSecondComma + 2, -9);
-  let thirdIngredient = slicedString3;
+  const recipeSearch = props.location.search;
 
   useEffect(() => {
-    let comboSTR = `${firstIngredient} ${secondIngredient} ${thirdIngredient}`;
-    let comboArr = comboSTR.split("%20").join("");
-    setCombination(comboArr);
-  }, [firstIngredient, secondIngredient, thirdIngredient]);
+    setCombination(stringSplitter(recipeSearch)[0]);
+  }, [recipeSearch]);
 
-  const recipeSearch = props.location.search;
   useEffect(() => {
     recipeService.getrecipes(recipeSearch, APIKEY).then((response) => {
       setRecipe(response);
@@ -36,21 +26,25 @@ function Results(props) {
 
   useEffect(() => {
     recipeService
-      .getWine(firstIngredient, APIKEY)
+      .getWine(stringSplitter(recipeSearch)[1], APIKEY)
       .then((wine) => {
         if (wine.hasOwnProperty("status") || wine.pairedWines.length === 0) {
-          recipeService.getWine(secondIngredient, APIKEY).then((wine) => {
-            if (
-              wine.hasOwnProperty("status") ||
-              wine.pairedWines.length === 0
-            ) {
-              recipeService.getWine(thirdIngredient, APIKEY).then((wine) => {
+          recipeService
+            .getWine(stringSplitter(recipeSearch[2]), APIKEY)
+            .then((wine) => {
+              if (
+                wine.hasOwnProperty("status") ||
+                wine.pairedWines.length === 0
+              ) {
+                recipeService
+                  .getWine(stringSplitter(recipeSearch)[3], APIKEY)
+                  .then((wine) => {
+                    setWine(wine);
+                  });
+              } else {
                 setWine(wine);
-              });
-            } else {
-              setWine(wine);
-            }
-          });
+              }
+            });
         } else {
           setWine(wine);
         }
@@ -58,7 +52,7 @@ function Results(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [recipeSearch, firstIngredient, secondIngredient, thirdIngredient]);
+  }, [recipeSearch]);
 
   const handleClick = (e, id) => {
     e.preventDefault();
