@@ -11,6 +11,7 @@ import Navbar from "./components/NavBar/Navbar";
 import Primary from "./pages/Primary";
 import FlavourPairingPage from "./pages/FlavourPairingPage";
 import Results from "./pages/Results";
+import Four0four from "./pages/Four0four";
 
 function App() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
         <PrivateRoute exact path="/results/" component={Results} />
         <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
         <Route exact path="/" component={Home} />
+        <Route path="/" component={Four0four} />
       </Switch>
     </div>
   );
