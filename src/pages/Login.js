@@ -16,21 +16,6 @@ function Login(props) {
     login(email, password);
     setError(loginError);
   };
-  useEffect(() => {
-    setError("");
-  }, []);
-
-  const cleanErrors = () => {
-    setError("");
-  };
-
-  const timer = setTimeout(cleanErrors, 6000);
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [timer]);
 
   return (
     <div className="login-container">

@@ -10,28 +10,20 @@ function Signup(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { login, loginError } = props;
+  const { signup, signUpError } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login(email, password);
-    setError(loginError);
-  };
-  useEffect(() => {
-    setError("");
-  }, []);
-
-  const cleanErrors = () => {
-    setError("");
+    signup(name, email, password);
+    setName("");
+    setPassword("");
+    setEmail("");
+    setError(signUpError);
   };
 
-  const timer = setTimeout(cleanErrors, 6000);
-
   useEffect(() => {
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [timer]);
+    setError(signUpError);
+  }, [signUpError]);
 
   return (
     <div className="login-container">
@@ -39,7 +31,6 @@ function Signup(props) {
         <img className="home__image" src={mollecules} alt="logo" />
       </div>
       <motion.form
-        key="12345"
         initial={{ x: "250vw" }}
         animate={{ x: 0 }}
         transition={{ type: "spring", delay: 0.6, duration: 1.2 }}
@@ -54,6 +45,7 @@ function Signup(props) {
           onChange={(e) => setName(e.target.value)}
           autoComplete="name"
           placeholder="Name"
+          required
         />
         <input
           className="login__input"
@@ -63,15 +55,17 @@ function Signup(props) {
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
           placeholder="Email"
+          required
         />
         <input
           className="login__input"
-          placeholder="password"
+          placeholder="Password"
           type="password"
           value={password}
           name="password"
           autoComplete="current-password"
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <motion.button
           whileHover={{
@@ -94,15 +88,9 @@ function Signup(props) {
           </Link>
         </motion.p>
         <div>
-          {error.includes("401") ? (
-            <p className="login__p" style={{ color: "white" }}>
-              that email address is already in use!
-            </p>
-          ) : null}
-
           {error.includes("400") ? (
             <p className="login__p" style={{ color: "white" }}>
-              I think you forgot to fill in the form!
+              Sorry this Email has already been taken
             </p>
           ) : null}
         </div>

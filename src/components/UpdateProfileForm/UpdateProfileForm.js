@@ -27,6 +27,7 @@ function UpdateProfileForm(props) {
           onChange={(e) => setName(e.target.value)}
           autoComplete="name"
           placeholder="Name"
+          required
         />
         <input
           className="login__input edit"
@@ -36,6 +37,7 @@ function UpdateProfileForm(props) {
           onChange={(e) => setEmail(e.target.value)}
           autoComplete="email"
           placeholder="Email"
+          required
         />
         <motion.button
           whileHover={{
