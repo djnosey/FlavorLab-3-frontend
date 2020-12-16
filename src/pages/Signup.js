@@ -10,22 +10,22 @@ function Signup(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const { login, loginError } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.signup(name, email, password);
-    cleanErrors();
+    login(email, password);
+    setError(loginError);
   };
-
   useEffect(() => {
-    setError(props.signUpError);
-  }, [props.signUpError]);
+    setError("");
+  }, []);
 
   const cleanErrors = () => {
     setError("");
   };
 
-  const timer = setTimeout(cleanErrors, 5000);
+  const timer = setTimeout(cleanErrors, 6000);
 
   useEffect(() => {
     return () => {

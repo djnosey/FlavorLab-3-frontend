@@ -17,7 +17,7 @@ function ProfilePage(props) {
     name: "",
   });
   const [showForm, setShowForm] = useState(false);
-
+  const { logout } = props;
   const { id } = props.match.params;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function ProfilePage(props) {
   };
 
   const deleteProfile = () => {
-    props.logout();
+    logout();
     userService
       .deleteUser(id)
       .then(() => {

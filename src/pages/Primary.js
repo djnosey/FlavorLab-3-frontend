@@ -10,6 +10,7 @@ function Primary(props) {
   const [allIngredients, setAllIngredients] = useState([]);
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [SingleIngredientObject, setSingleIngredientObject] = useState([]);
+  const { isLoggedIn } = props;
 
   useEffect(() => {
     ingredientService.getAll().then((ingredients) => {
@@ -38,7 +39,7 @@ function Primary(props) {
     >
       <div className="primary__left">
         <ScrollPicker findIngredient={findIngredient} />
-        {props.isLoggedIn ? (
+        {isLoggedIn ? (
           <Link to={`/pairing/${SingleIngredientObject[0]?._id}`}>
             <motion.button
               whileHover={{

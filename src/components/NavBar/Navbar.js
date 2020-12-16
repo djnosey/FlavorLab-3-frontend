@@ -7,21 +7,11 @@ import { motion } from "framer-motion";
 function Navbar(props) {
   let history = useHistory();
   let location = useLocation();
+  const { logout, isLoggedIn, user } = props;
+
   const handleSignOut = () => {
-    props.logout();
+    logout();
     history.push("/");
-  };
-
-  const handleLogInClick = () => {
-    history.push("/login");
-  };
-
-  const handleSignUpClick = () => {
-    history.push("/signup");
-  };
-
-  const handleProfileClick = () => {
-    history.push(`/profile/${props.user._id}`);
   };
 
   return (
@@ -39,7 +29,7 @@ function Navbar(props) {
       ) : (
         <div></div>
       )}
-      {props.isLoggedIn ? (
+      {isLoggedIn ? (
         <div className="navbar__username-container">
           <motion.button
             onClick={handleSignOut}
@@ -48,31 +38,33 @@ function Navbar(props) {
           >
             Sign out
           </motion.button>
-
-          <motion.button
-            whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
-            onClick={handleProfileClick}
-            className="navbar__button"
-          >
-            Profile
-          </motion.button>
+          <Link to={`/profile/${user._id}`}>
+            <motion.button
+              whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
+              className="navbar__button"
+            >
+              Profile
+            </motion.button>
+          </Link>
         </div>
       ) : (
         <div className="navbar__username-container">
-          <motion.button
-            whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
-            onClick={handleSignUpClick}
-            className="navbar__button"
-          >
-            Sign Up
-          </motion.button>
-          <motion.button
-            whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
-            onClick={handleLogInClick}
-            className="navbar__button"
-          >
-            Login
-          </motion.button>
+          <Link to="/signup">
+            <motion.button
+              whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
+              className="navbar__button"
+            >
+              Sign Up
+            </motion.button>
+          </Link>
+          <Link to="/login">
+            <motion.button
+              whileHover={{ boxShadow: "0px 0px 11px 1px rgba(255,20,147,1)" }}
+              className="navbar__button"
+            >
+              Login
+            </motion.button>
+          </Link>
         </div>
       )}
     </div>

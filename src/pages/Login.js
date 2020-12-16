@@ -14,18 +14,17 @@ function Login(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(email, password);
-    setTimeout(cleanErrors, 5000);
-  };
-
-  useEffect(() => {
     setError(loginError);
-  }, [loginError]);
+  };
+  useEffect(() => {
+    setError("");
+  }, []);
 
   const cleanErrors = () => {
     setError("");
   };
 
-  const timer = setTimeout(cleanErrors, 5000);
+  const timer = setTimeout(cleanErrors, 6000);
 
   useEffect(() => {
     return () => {
@@ -97,11 +96,6 @@ function Login(props) {
               {error.includes("404") ? (
                 <p className="login__p" style={{ color: "white" }}>
                   looks like that email doesn't have an account!
-                </p>
-              ) : null}
-              {error.includes("400") ? (
-                <p className="login__p" style={{ color: "white" }}>
-                  Please make sure all fields are filled in correctly!
                 </p>
               ) : null}
             </div>

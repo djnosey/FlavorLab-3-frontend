@@ -58,7 +58,6 @@ function GroupFilter(props) {
                 defaultChecked={true}
                 value={group}
                 name={group}
-                id="hello"
               />
               <label>{group}</label>
             </span>
