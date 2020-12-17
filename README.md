@@ -161,7 +161,7 @@ https://api.spoonacular.com/food/wine/pairing
 
 ### Links
 
-[WireFrames](https://www.figma.com/file/Y49g1BNJuHyzCHbCZxemT1/flavorLab)
+[WireFrames](https://www.figma.com/file/Y49g1BNJuHyzCHbCZxemT1/flavorLab?node-id=0%3A1)
 
 [Trello](https://trello.com/b/CvpPTGeq/module-3-project)
 
