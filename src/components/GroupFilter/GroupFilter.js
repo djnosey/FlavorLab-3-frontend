@@ -20,7 +20,7 @@ function GroupFilter(props) {
 
   const groups = Object.keys(sortGroups);
 
-  const handleGroupFilterRefactored = (e) => {
+  const handleGroupFilter = (e) => {
     const copyOfPairs = [...pairs];
     const arr = sortGroups[e.target.value];
     if (e.target.checked === false) {
@@ -49,21 +49,23 @@ function GroupFilter(props) {
 
   return (
     <div>
-      <form onChange={handleGroupFilterRefactored}>
-        {groups.map((group) => {
-          return (
-            <span key={group}>
-              <input
-                type="checkbox"
-                defaultChecked={true}
-                value={group}
-                name={group}
-              />
-              <label style={{ marginRight: "12px" }}>{group}</label>
-            </span>
-          );
-        })}
-      </form>
+      {props.clicks < 1 ? (
+        <form onChange={handleGroupFilter}>
+          {groups.map((group) => {
+            return (
+              <span key={group}>
+                <input
+                  type="checkbox"
+                  defaultChecked={true}
+                  value={group}
+                  name={group}
+                />
+                <label style={{ marginRight: "12px" }}>{group}</label>
+              </span>
+            );
+          })}
+        </form>
+      ) : null}
     </div>
   );
 }

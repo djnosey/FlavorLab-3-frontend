@@ -78,7 +78,15 @@ function PairingContainer(props) {
   return (
     <div className="pairingContainer">
       <div className="pairingContainer__buttons">
-        <h2>Explore tastes and click to match ingredients</h2>
+        {clicks < 1 ? (
+          <h2>
+            Explore tastes and{" "}
+            <strong style={{ fontWeight: "700" }}>click</strong> to match
+            ingredients
+          </h2>
+        ) : (
+          <h2>Click on your third ingredient!</h2>
+        )}
         <div className="pairingContainer__options">
           <PairSorter
             setDisplay={setDisplay}
@@ -138,6 +146,7 @@ function PairingContainer(props) {
           setDisplay={setDisplay}
           pairs={pairs}
           pairsCopy={pairsCopy}
+          clicks={clicks}
         />
       </div>
     </div>
