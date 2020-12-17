@@ -16,6 +16,7 @@ function GroupFilter(props) {
 
   useEffect(() => {
     props.setDisplay(pairs);
+    // eslint-disable-next-line
   }, [pairs]);
 
   const groups = Object.keys(sortGroups);

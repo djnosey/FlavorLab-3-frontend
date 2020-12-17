@@ -13,6 +13,7 @@ function PairSorter(props) {
 
   useEffect(() => {
     setDisplay(newPairs);
+    // eslint-disable-next-line
   }, [newPairs]);
 
   const sortByScore = (e) => {
