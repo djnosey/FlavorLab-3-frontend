@@ -161,9 +161,13 @@ https://api.spoonacular.com/food/wine/pairing
 
 ### Links
 
-githublink
+[WireFrames](https://www.figma.com/file/Y49g1BNJuHyzCHbCZxemT1/flavorLab)
 
-[wireframe]: https://www.figma.com/file/Y49g1BNJuHyzCHbCZxemT1/Untitled?node-id=0%3A1 "wireFrame"
+[Trello](https://trello.com/b/CvpPTGeq/module-3-project)
+
+[Github-Client](https://github.com/djnosey/module-3-frontend)
+
+[Github-server](https://github.com/djnosey/module3-backend)
 
 Trellolink
 
