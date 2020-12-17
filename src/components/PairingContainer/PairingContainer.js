@@ -13,6 +13,7 @@ function PairingContainer(props) {
   const [pairs, setPairs] = useState([]);
   const [pairsCopy, setPairsCopy] = useState([]);
   const { ingredient, setSecond, setThird, incClicks, clicks } = props;
+  const [showFilter, setShowFilter] = useState(true);
 
   const container = {
     hidden: { opacity: 0 },
@@ -39,6 +40,7 @@ function PairingContainer(props) {
     );
     setPairsCopy(copyOfPairs);
     setPairs(copyOfPairs);
+    setShowFilter(false);
   }, [Singleingredient]);
 
   const resetList = (e) => {
@@ -47,11 +49,16 @@ function PairingContainer(props) {
     setSecond("");
     setThird("");
     incClicks(0);
+    setShowFilter(false);
   };
 
   const setDisplay = (filteredPairs) => {
     setPairs(filteredPairs);
   };
+
+  useEffect(() => {
+    setShowFilter(true);
+  }, [showFilter]);
 
   const reducePairs = (group, name) => {
     const copyOfPairs = [...pairs];
@@ -141,14 +148,16 @@ function PairingContainer(props) {
           })}
         </AnimatePresence>
       </div>
-      <div className="pairingContainer__selectGroup-container">
-        <GroupFilter
-          setDisplay={setDisplay}
-          pairs={pairs}
-          pairsCopy={pairsCopy}
-          clicks={clicks}
-        />
-      </div>
+      {showFilter ? (
+        <div className="pairingContainer__selectGroup-container">
+          <GroupFilter
+            setDisplay={setDisplay}
+            pairs={pairs}
+            pairsCopy={pairsCopy}
+            clicks={clicks}
+          />
+        </div>
+      ) : null}
     </div>
   );
 }
