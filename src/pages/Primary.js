@@ -52,7 +52,7 @@ function Primary(props) {
             </motion.button>
           </Link>
         ) : (
-          <Link to="/login">
+          <Link to={`/pairing/${SingleIngredientObject[0]?._id}`}>
             <motion.button
               whileHover={{
                 scale: 1.1,
@@ -60,7 +60,7 @@ function Primary(props) {
               }}
               className="navbar__button"
             >
-              Log in
+              Start pairing
             </motion.button>
           </Link>
         )}

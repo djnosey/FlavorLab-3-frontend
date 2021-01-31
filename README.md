@@ -169,8 +169,6 @@ https://api.spoonacular.com/food/wine/pairing
 
 [Github-server](https://github.com/djnosey/module3-backend)
 
-Trellolink
-
 ---
 
 ### Backlog

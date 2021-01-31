@@ -25,12 +25,8 @@ function App() {
 
         <AnonRoute exact path="/signup" component={Signup} />
         <AnonRoute exact path="/login" component={Login} />
-        <PrivateRoute
-          exact
-          path="/pairing/:id"
-          component={FlavourPairingPage}
-        />
-        <PrivateRoute exact path="/results/" component={Results} />
+        <Route exact path="/pairing/:id" component={FlavourPairingPage} />
+        <Route exact path="/results/" component={Results} />
         <PrivateRoute exact path="/profile/:id" component={ProfilePage} />
         <Route exact path="/" component={Home} />
         <Route path="/" component={Four0four} />
