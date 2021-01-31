@@ -105,6 +105,9 @@ function Results(props) {
           <ResultsWine wine={wine} />
         </motion.div>
       </div>
+      <div>
+        {props.isLoggedin ? <p>login to save recipes to your profile</p> : null}
+      </div>
     </div>
   );
 }
